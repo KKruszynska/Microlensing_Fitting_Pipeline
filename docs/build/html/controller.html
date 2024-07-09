@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Controller &mdash; Microlensing Fitting Pipeline 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=d45e8c67"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Analyst" href="analyst.html" />
+    <link rel="prev" title="Usage" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Microlensing Fitting Pipeline
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Controller</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#MFPipeline.controller.controller.Controller"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#MFPipeline.controller.controller.Controller.create_analysts"><code class="docutils literal notranslate"><span class="pre">Controller.create_analysts()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#MFPipeline.controller.controller.Controller.launch_analysts"><code class="docutils literal notranslate"><span class="pre">Controller.launch_analysts()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#MFPipeline.controller.controller.Controller.parse_config"><code class="docutils literal notranslate"><span class="pre">Controller.parse_config()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="analyst.html">Analyst</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Microlensing Fitting Pipeline</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Controller</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/controller.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-MFPipeline.controller.controller">
+<span id="controller"></span><h1>Controller<a class="headerlink" href="#module-MFPipeline.controller.controller" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="MFPipeline.controller.controller.Controller">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MFPipeline.controller.controller.</span></span><span class="sig-name descname"><span class="pre">Controller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MFPipeline.controller.controller.Controller" title="Link to this definition"></a></dt>
+<dd><p>Class that controls other analysts and their corresponding tasks.
+A controller has to be initialized with either config_path or config_dict specified. Otherwise, it will not work.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event_list</strong> – list, a list with names of events that need to be analyzed by the pipeline</p></li>
+<li><p><strong>config_path</strong> – string, optional, a path to a YAML file that has the configuration parameters for the controller</p></li>
+<li><p><strong>config_dict</strong> – dictionary, optional, a dictionary containing configuration of the controller</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="MFPipeline.controller.controller.Controller.create_analysts">
+<span class="sig-name descname"><span class="pre">create_analysts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MFPipeline.controller.controller.Controller.create_analysts" title="Link to this definition"></a></dt>
+<dd><p>This function creates a list of <a class="reference internal" href="analyst.html#MFPipeline.analyst.event_analyst.EventAnalyst" title="MFPipeline.analyst.event_analyst.EventAnalyst"><code class="xref py py-class docutils literal notranslate"><span class="pre">MFPipeline.analyst.event_analyst.EventAnalyst</span></code></a> that get one event from
+the <cite>event_list</cite> assigned to them.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MFPipeline.controller.controller.Controller.launch_analysts">
+<span class="sig-name descname"><span class="pre">launch_analysts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MFPipeline.controller.controller.Controller.launch_analysts" title="Link to this definition"></a></dt>
+<dd><p>This function starts and parallelizes the work of created <a class="reference internal" href="analyst.html#MFPipeline.analyst.event_analyst.EventAnalyst" title="MFPipeline.analyst.event_analyst.EventAnalyst"><code class="xref py py-class docutils literal notranslate"><span class="pre">MFPipeline.analyst.event_analyst.EventAnalyst</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Status of work???</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MFPipeline.controller.controller.Controller.parse_config">
+<span class="sig-name descname"><span class="pre">parse_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MFPipeline.controller.controller.Controller.parse_config" title="Link to this definition"></a></dt>
+<dd><p>Function that parses the YAML file with configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>configuration in form of a dictionary.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="analyst.html" class="btn btn-neutral float-right" title="Analyst" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Katarzyna Kruszynska.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
