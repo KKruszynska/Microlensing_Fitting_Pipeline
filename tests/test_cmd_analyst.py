@@ -1,4 +1,3 @@
-import pytest
 import pandas as pd
 
 scenario_file = {
@@ -61,13 +60,14 @@ class testCmdAnalyst():
         self.scenario = scenario
 
     def test_plot_gaia(self):
-        from analyst.cmd_analyst import CmdAnalyst
+        from MFPipeline.analyst.cmd_analyst import CmdAnalyst
 
         catalogue_name = self.scenario.get("catalogue_name")
         path_outputs = self.scenario.get("path_outputs")
         event_name = self.scenario.get("event_name")
         ra, dec = self.scenario.get("ra"), self.scenario.get("dec")
         light_curve_data = self.scenario.get("light_curve_data")
+        print(light_curve_data)
 
         if self.scenario.get("path_input") is not None:
             path_input = self.scenario.get("path_input")
@@ -83,7 +83,7 @@ class testCmdAnalyst():
 
 
     def test_load_gaia(self):
-        from analyst.cmd_analyst import CmdAnalyst
+        from MFPipeline.analyst.cmd_analyst import CmdAnalyst
 
         catalogue_name = self.scenario.get("catalogue_name")
         path_outputs = self.scenario.get("path_outputs")
@@ -103,7 +103,7 @@ class testCmdAnalyst():
         assert type(cmd_labels) == list
 
     def test_load_source_gaia(self):
-        from analyst.cmd_analyst import CmdAnalyst
+        from MFPipeline.analyst.cmd_analyst import CmdAnalyst
 
         catalogue_name = self.scenario.get("catalogue_name")
         path_outputs = self.scenario.get("path_outputs")
