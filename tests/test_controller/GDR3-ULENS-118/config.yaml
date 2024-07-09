@@ -1,0 +1,11 @@
+event_name: GDR3-ULEN-118
+ra: 99.4166892
+dec: 13.9551113
+    
+cmd:
+    catalogues:
+        - Gaia_DR3
+            band:
+                - Gaia_G
+                - Gaia_BP
+                - Gaia_RP
