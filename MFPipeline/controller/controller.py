@@ -1,10 +1,15 @@
 import yaml
 
-from MFPipe.analyst.event_analyst import EventAnalyst
+from MFPipeline.analyst.event_analyst import EventAnalyst
 
 class Controller:
     '''
-    Controller class that launches other processes.
+    Class that controls other analysts and their corresponding tasks.
+    A controller has to be initialized with either config_path or config_dict specified. Otherwise, it will not work.
+
+    :param event_list: list, a list with names of events that need to be analyzed by the pipeline
+    :param config_path: string, optional, a path to a YAML file that has the configuration parameters for the controller
+    :param config_dict: dictionary, optional, a dictionary containing configuration of the controller
     '''
     def __init__(self,
                  event_list,
@@ -18,12 +23,15 @@ class Controller:
             # read config path
             self.config = self.parse_config(config_path)
         else:
+            # todo: raise custom exception here?
             print("Error! Controller needs information!!!")
             quit()
 
     def parse_config(self):
         '''
-        :return: satus of reading controller configuration file
+        Function that parses the YAML file with configuration.
+
+        :return: configuration in form of a dictionary.
         '''
 
         config = {}
@@ -41,8 +49,8 @@ class Controller:
 
     def create_analysts(self):
         '''
-        Create analysts to work.
-        :return:
+        This function creates a list of :class:`MFPipeline.analyst.event_analyst.EventAnalyst` that get one event from
+        the `event_list` assigned to them.
         '''
 
         self.event_analysts = []
@@ -53,6 +61,11 @@ class Controller:
 
 
     def launch_analysts(self):
+        '''
+        This function starts and parallelizes the work of created :class:`MFPipeline.analyst.event_analyst.EventAnalyst`.
+
+        :return: Status of work???
+        '''
         # how to parallelize it?
         # put here something like this:
         # set_start_method('fork')
