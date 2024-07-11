@@ -1,9 +1,12 @@
 import yaml
+
+from MFPipeline.analyst.analyst import Analyst
 from MFPipeline.analyst.cmd_analyst import CmdAnalyst
 
-class EventAnalyst():
+class EventAnalyst(Analyst):
     '''
     This is a class that analyzes one event.
+    It is a child of the :class:`MFPipeline.analyst.analyst.Analyst`
     It takes care of other sub-analysts that fit microlensing models to the light curve,
     create colour-magnitude diagrams and perform other additional tasks.
 
@@ -20,44 +23,46 @@ class EventAnalyst():
                  config_dict=None,
                  config_path=None):
 
-        self.event_name = event_name
-        self.path_outputs = analyst_path
+        Analyst.__init__(self, event_name, analyst_path, config_dict=config_dict, config_path=config_path)
 
-        if (config_dict != None):
-            # READ config_dict
-            self.config = config_dict
-        elif (config_path != None):
-            # read config path
-            self.config = self.parse_config(config_path)
+        if(config_path != None):
+            self.parse_config(config_path)
+            self.parse_event_config(config_path)
+        elif(config_dict != None):
+            self.add_config_dict(config_dict)
         else:
-            # todo: raise custom exception here?
-            print("Error! Event Analyst needs information!!!")
+            print("Error! Event Analyst needs information.")
             quit()
 
-    def parse_config(self, config_path):
+    def parse_event_config(self, config_path):
         '''
-        Parse YAML file with configuration and turn it into a dictionary.
+        Parse YAML file with configuration, turn it into a dictionary and to
 
-        :param config_path: str, path with YAML file containing Event Analyst configuration.
-
-        :return: dictionary with Event Analyst configuration
+        :param config_path: str, path with YAML file containing additional information
+        needed for an Event Analyst.
         '''
 
-        config = {}
         try:
             with open(config_path, 'r') as file:
                 event_config = yaml.safe_load(file)
 
-            config["event_name"] = event_config.get("event_name")
-            config["ra"] = event_config.get("ra")
-            config["dec"] = event_config.get("dec")
-            config["cmd_analyst"] = event_config.get("cmd_analyst")
+            self.config["cmd_analyst"] = event_config.get("cmd_analyst")
 
         except Exception as err:
             print(f"Unexpected %s, %s" % (err, type(err)))
-            config = None
 
-        return config
+    def add_config_dict(self, conifg_dict):
+        '''
+        Adds sections of config relevant to Event Analyst to its configuration file.
+
+        :param conifg_dict: dict, dictionary containing configuration for Event Analyst
+        '''
+
+        try:
+            self.config["cmd_analyst"] = conifg_dict.get("cmd_analyst")
+
+        except Exception as err:
+            print(f"Unexpected %s, %s" % (err, type(err)))
 
     def run_single_analyst(self):
         '''
@@ -94,11 +99,11 @@ class EventAnalyst():
             catalogue = dictionary["name"]
             light_curve_data = {'baseline': {'Gaia_G': 16.12, 'Gaia_BP': 17.78, 'Gaia_RP': 14.88}, 'source': {'Gaia_G': 16.14, 'Gaia_BP': 17.79, 'Gaia_RP': 14.91}, 'blend': {'Gaia_G': 20.37, 'Gaia_BP': 22.78, 'Gaia_RP': 18.69}}
 
-            cmd_analyst = CmdAnalyst(self.path_outputs, self.config["event_name"], self.config["ra"],
-                                     self.config["dec"], catalogue, light_curve_data, file_path=path_input
-                                     )
+            cmd_analyst = CmdAnalyst(self.config["event_name"], self.analyst_path, catalogue, light_curve_data, config_dict=self.config)
+
             source_data, source_labels = cmd_analyst.transform_source_data()
             cmd_data, cmd_labels = cmd_analyst.load_catalogue_data()
+
             plot_status = cmd_analyst.plot_cmd(source_data, source_labels, cmd_data, cmd_labels)
             cmd_plot_status.append(plot_status)
 
