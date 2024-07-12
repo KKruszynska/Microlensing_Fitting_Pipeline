@@ -38,7 +38,6 @@ class Analyst:
         Parse YAML file with configuration, turn it into a dictionary and add it to self.
 
         :param config_path: str, path with YAML file containing Analyst configuration.
-
         '''
 
         config = {}
