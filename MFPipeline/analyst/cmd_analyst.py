@@ -18,20 +18,21 @@ class CmdAnalyst(Analyst):
 
     :param event_name: str, name of the event
     :param analyst_path: str, path to the folder where the outputs are saved
-    :param light_curve_data: dict, dictionary with magnitudes in selected bands for source, blend and baseline;
-    this is a result from fitting.
+    :param light_curve_data: dict, dictionary with magnitudes in selected bands for source, blend and baseline; this is a result from fitting.
 
     Notes on configuration:
-    The configuration dicitionary can contain the following keywords:
-    :param name: str, name of the catalogue
-    :param cmd_path: str, optional, path to the catalogue
-    :param radius: float, 30 arcmin if not specified, radius of the search of sources in catalogue around the event,
-    used when searching catalogues available through astroquery
-    :param optional: dict, a dictionary with optional keywords, used in various places in the code.
-    `optional` can contain:
-    :param parallax_quality: float, parallax over error constrain demanded for a catalogue search in Gaia catalogues,
-    :param separator: str, separator used in the file with the catalogue
 
+    The configuration dictionary can contain the following keywords:
+
+    * `name` str, name of the catalogue
+    * `cmd_path` str, optional, path to the catalogue
+    * `radius` float, 30 arcmin if not specified, radius of the search of sources in catalogue around the event, used when searching catalogues available through astroquery
+    * `optional` dict, a dictionary with optional keywords, used in various places in the code.
+
+    `optional` can contain:
+
+    * `parallax_quality` float, parallax over error constrain demanded for a catalogue search in Gaia catalogues,
+    * `separator` str, separator used in the file with the catalogue
     '''
     def __init__(self,
                  event_name,
@@ -57,6 +58,13 @@ class CmdAnalyst(Analyst):
             quit()
 
     def add_cmd_config(self, catalogue, config_dict):
+        '''
+        Add CMD configuration fields to analyst config.
+
+        :param catalogue: str, catalogue name
+        :param config_dict: dict, dictionary with analyst config
+        '''
+
         cmd_config = \
             [cat_dict for cat_dict in config_dict["cmd_analyst"]["catalogues"] if cat_dict["name"] == catalogue][0]
         self.catalogue_name = cmd_config.get("name")
@@ -121,13 +129,11 @@ class CmdAnalyst(Analyst):
         '''
         Loads data within a specified radius and of specified parallax quality from Gaia catalogues.
 
-        :param catalogue_name: str, specified earlier, should contain words "Gaia" and "DRx", where x is the number of
-        data release (currently supported 1, 2 and 3), for example `GaiaDR2` or `Gaia_DR3`,
+        :param catalogue_name: str, specified earlier, should contain words "Gaia" and "DRx", where x is the number of data release (currently supported 1, 2 and 3), for example `GaiaDR2` or `Gaia_DR3`,
         :param radius: float, specified earlier, radius of the search for sources around the event,
         :param parallax_quality: float, optional, parallax over error lower limit.
 
-        :return: pandas data frame with magnitudes and labels of the bands used; the bands are `Gaia_G`, `Gaia_BP`, and
-        `Gaia_RP` corresponding to `phot_g_mean_mag`, `phot_bp_mean_mag` and `phot_rp_mean_mag`.
+        :return: pandas data frame with magnitudes and labels of the bands used; the bands are `Gaia_G`, `Gaia_BP`, and `Gaia_RP` corresponding to `phot_g_mean_mag`, `phot_bp_mean_mag` and `phot_rp_mean_mag`.
         '''
         table_name = ""
         if "DR3" in self.catalogue_name:
