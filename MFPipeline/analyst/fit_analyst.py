@@ -21,11 +21,11 @@ class FitAnalyst(Analyst):
                  config_dict=None,
                  config_path=None):
 
-        Analyst.__init__(event_name, analyst_path, config_dict=config_dict, config_path=config_path)
+        Analyst.__init__(self, event_name, analyst_path, config_dict=config_dict, config_path=config_path)
 
         if (config_dict != None):
             self.add_fit_config(config_dict)
-        elif ("fit_config" in self.config):
+        elif ("fit_analyst" in self.config):
             self.add_fit_config(self.config)
         else:
             print("Error! Fit Analyst needs information.")
@@ -38,15 +38,17 @@ class FitAnalyst(Analyst):
         :param config_dict: dict, dictionary with analyst config
         '''
 
-        self.n_max = config["lc_analyst"]["n_max"]
+        self.n_max = config["fit_analyst"]["n_max"]
 
     def perform_fit(self):
         '''
-        Placeholder.
+        Placeholder. Counts to n_max.
 
-        :return:
+        :return: number of counts
         '''
 
         count = 0
         for i in range(self.n_max):
             count += 1
+
+        return count
