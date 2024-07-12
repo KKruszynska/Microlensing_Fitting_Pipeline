@@ -19,11 +19,12 @@ class LightCurveAnalyst(Analyst):
                  config_dict=None,
                  config_path=None):
 
-        Analyst.__init__(event_name, analyst_path, config_dict=config_dict, config_path=config_path)
+        super().__init__(event_name, analyst_path, config_dict=config_dict, config_path=config_path)
+        # Analyst.__init__(self, event_name, analyst_path, config_dict=config_dict, config_path=config_path)
 
         if (config_dict != None):
             self.add_lc_config(config_dict)
-        elif("lc_config" in self.config):
+        elif("lc_analyst" in self.config):
             self.add_lc_config(self.config)
         else:
             print("Error! CMD Analyst needs information.")
@@ -41,11 +42,13 @@ class LightCurveAnalyst(Analyst):
 
     def perform_quality_check(self):
         '''
-        Placeholder.
+        Placeholder. Counts to n_max.
 
-        :return:
+        :return: number of counts
         '''
 
         count = 0
         for i in range(self.n_max):
             count += 1
+
+        return count
