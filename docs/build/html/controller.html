@@ -48,7 +48,6 @@
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Controller</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#MFPipeline.controller.controller.Controller"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#MFPipeline.controller.controller.Controller.create_analysts"><code class="docutils literal notranslate"><span class="pre">Controller.create_analysts()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#MFPipeline.controller.controller.Controller.launch_analysts"><code class="docutils literal notranslate"><span class="pre">Controller.launch_analysts()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#MFPipeline.controller.controller.Controller.parse_config"><code class="docutils literal notranslate"><span class="pre">Controller.parse_config()</span></code></a></li>
 </ul>
@@ -86,29 +85,23 @@
 <span id="controller"></span><h1>Controller<a class="headerlink" href="#module-MFPipeline.controller.controller" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="MFPipeline.controller.controller.Controller">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MFPipeline.controller.controller.</span></span><span class="sig-name descname"><span class="pre">Controller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MFPipeline.controller.controller.Controller" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MFPipeline.controller.controller.</span></span><span class="sig-name descname"><span class="pre">Controller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analyst_dicts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MFPipeline.controller.controller.Controller" title="Link to this definition"></a></dt>
 <dd><p>Class that controls other analysts and their corresponding tasks.
 A controller has to be initialized with either config_path or config_dict specified. Otherwise, it will not work.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>event_list</strong> – list, a list with names of events that need to be analyzed by the pipeline</p></li>
+<li><p><strong>light_curves</strong> – a list of event names and their light curves</p></li>
 <li><p><strong>config_path</strong> – string, optional, a path to a YAML file that has the configuration parameters for the controller</p></li>
 <li><p><strong>config_dict</strong> – dictionary, optional, a dictionary containing configuration of the controller</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="MFPipeline.controller.controller.Controller.create_analysts">
-<span class="sig-name descname"><span class="pre">create_analysts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MFPipeline.controller.controller.Controller.create_analysts" title="Link to this definition"></a></dt>
-<dd><p>This function creates a list of <a class="reference internal" href="analyst.html#MFPipeline.analyst.event_analyst.EventAnalyst" title="MFPipeline.analyst.event_analyst.EventAnalyst"><code class="xref py py-class docutils literal notranslate"><span class="pre">MFPipeline.analyst.event_analyst.EventAnalyst</span></code></a> that get one event from
-the <cite>event_list</cite> assigned to them.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="MFPipeline.controller.controller.Controller.launch_analysts">
 <span class="sig-name descname"><span class="pre">launch_analysts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MFPipeline.controller.controller.Controller.launch_analysts" title="Link to this definition"></a></dt>
-<dd><p>This function starts and parallelizes the work of created <a class="reference internal" href="analyst.html#MFPipeline.analyst.event_analyst.EventAnalyst" title="MFPipeline.analyst.event_analyst.EventAnalyst"><code class="xref py py-class docutils literal notranslate"><span class="pre">MFPipeline.analyst.event_analyst.EventAnalyst</span></code></a>.</p>
+<dd><p>This function starts and parallelizes the <a class="reference internal" href="analyst.html#MFPipeline.analyst.event_analyst.EventAnalyst" title="MFPipeline.analyst.event_analyst.EventAnalyst"><code class="xref py py-class docutils literal notranslate"><span class="pre">MFPipeline.analyst.event_analyst.EventAnalyst</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Status of work???</p>

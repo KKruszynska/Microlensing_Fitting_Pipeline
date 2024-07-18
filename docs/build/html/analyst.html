@@ -55,7 +55,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#MFPipeline.analyst.event_analyst.EventAnalyst.add_config_dict"><code class="docutils literal notranslate"><span class="pre">EventAnalyst.add_config_dict()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#MFPipeline.analyst.event_analyst.EventAnalyst.parse_config"><code class="docutils literal notranslate"><span class="pre">EventAnalyst.parse_config()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#MFPipeline.analyst.event_analyst.EventAnalyst.parse_event_config"><code class="docutils literal notranslate"><span class="pre">EventAnalyst.parse_event_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#MFPipeline.analyst.event_analyst.EventAnalyst.parse_light_curves"><code class="docutils literal notranslate"><span class="pre">EventAnalyst.parse_light_curves()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#MFPipeline.analyst.event_analyst.EventAnalyst.run_cmd_analyst"><code class="docutils literal notranslate"><span class="pre">EventAnalyst.run_cmd_analyst()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#MFPipeline.analyst.event_analyst.EventAnalyst.run_fit_analyst"><code class="docutils literal notranslate"><span class="pre">EventAnalyst.run_fit_analyst()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#MFPipeline.analyst.event_analyst.EventAnalyst.run_lc_analyst"><code class="docutils literal notranslate"><span class="pre">EventAnalyst.run_lc_analyst()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#MFPipeline.analyst.event_analyst.EventAnalyst.run_single_analyst"><code class="docutils literal notranslate"><span class="pre">EventAnalyst.run_single_analyst()</span></code></a></li>
 </ul>
 </li>
@@ -181,12 +184,44 @@ create colour-magnitude diagrams and perform other additional tasks.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="MFPipeline.analyst.event_analyst.EventAnalyst.parse_light_curves">
+<span class="sig-name descname"><span class="pre">parse_light_curves</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lc_config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MFPipeline.analyst.event_analyst.EventAnalyst.parse_light_curves" title="Link to this definition"></a></dt>
+<dd><p>This function parses the light curve information.
+:param lc_config: dictionary with light curves specified for the event
+:return: a list with event names, light curves, survey names, bands</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="MFPipeline.analyst.event_analyst.EventAnalyst.run_cmd_analyst">
 <span class="sig-name descname"><span class="pre">run_cmd_analyst</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MFPipeline.analyst.event_analyst.EventAnalyst.run_cmd_analyst" title="Link to this definition"></a></dt>
 <dd><p>Launch CMD Analyst to create a CMD plot for all soultions and specified catalogues.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a list of boolean values corresponding to satuts of the created cmd plots.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MFPipeline.analyst.event_analyst.EventAnalyst.run_fit_analyst">
+<span class="sig-name descname"><span class="pre">run_fit_analyst</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MFPipeline.analyst.event_analyst.EventAnalyst.run_fit_analyst" title="Link to this definition"></a></dt>
+<dd><p>Launch Fit Analyst to find all fitting microlensing events.
+Placeholder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>not sure yet?.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MFPipeline.analyst.event_analyst.EventAnalyst.run_lc_analyst">
+<span class="sig-name descname"><span class="pre">run_lc_analyst</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MFPipeline.analyst.event_analyst.EventAnalyst.run_lc_analyst" title="Link to this definition"></a></dt>
+<dd><p>Launch Light Curve Analyst to check the quality of the light curve.
+Placeholder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>not sure yet?.</p>
 </dd>
 </dl>
 </dd></dl>
