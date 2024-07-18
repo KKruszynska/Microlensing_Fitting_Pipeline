@@ -46,8 +46,8 @@ class Analyst:
                 event_config = yaml.safe_load(file)
 
             self.config["event_name"] = event_config.get("event_name")
-            self.config["ra"] = event_config.get("ra")
-            self.config["dec"] = event_config.get("dec")
+            self.config["ra"] = float(event_config.get("ra"))
+            self.config["dec"] = float(event_config.get("dec"))
 
         except Exception as err:
             print(f"Unexpected %s, %s" % (err, type(err)))

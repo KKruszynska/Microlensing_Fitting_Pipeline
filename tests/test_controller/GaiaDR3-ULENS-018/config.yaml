@@ -1,0 +1,17 @@
+event_name: GDR3-ULENS-018
+ra: 271.1194
+dec: -29.8162
+
+lc_analyst:
+    n_max : 10
+
+fit_analyst:
+    n_max : 10
+
+cmd_analyst:
+    catalogues:
+        - name: Gaia_DR3
+          band:
+              - Gaia_G
+              - Gaia_BP
+              - Gaia_RP
