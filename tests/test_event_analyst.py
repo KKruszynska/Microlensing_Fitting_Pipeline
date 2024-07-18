@@ -1,10 +1,10 @@
 import pytest
 
 scenario_file_cat = {
-    "event_name" : "GDR3-ULENS-025",
+    "event_name" : "GaiaDR3-ULENS-025",
     "ra" : 260.8781,
     "dec" : -27.3788,
-    "analyst_path" : "tests/test_controller/GDR3-ULENS-025/",
+    "analyst_path" : "tests/test_controller/GaiaDR3-ULENS-025/",
     "cmd_analyst": {
         "catalogues" : {
             "catalogue_1" : {
@@ -22,7 +22,7 @@ scenario_file_cat = {
         },
     },
     "config_final" : {
-        "event_name": "GDR3-ULENS-025",
+        "event_name": "GaiaDR3-ULENS-025",
         "ra": 260.8781,
         "dec": -27.3788,
         "cmd_analyst":
