@@ -260,9 +260,9 @@ class CmdAnalyst(Analyst):
                 fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor="lightgray")
                 fig.update_xaxes(zeroline=True, zerolinewidth=1, zerolinecolor="lightgray")
 
-                os.makedirs(self.analyst_path, exist_ok=True)
+                os.makedirs("./"+self.analyst_path, exist_ok=True)
                 fig.write_html(
-                    "%s/%s_CMD_%s_%s.html" % (self.analyst_path, self.event_name, self.catalogue_name, cmd_labels[i])
+                    "%s/%s_CMD_%s_%s.html" % ("./"+self.analyst_path, self.event_name, self.catalogue_name, cmd_labels[i])
                     )
 
                 cmd_status = True
