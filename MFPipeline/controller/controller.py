@@ -1,6 +1,11 @@
 import yaml
 
-from MFPipeline.analyst.event_analyst import EventAnalyst
+import subprocess
+from concurrent.futures import ProcessPoolExecutor
+
+
+def run_parallel_analyst(command):
+    subprocess.run(command, shell=False)
 
 class Controller:
     '''
@@ -8,14 +13,19 @@ class Controller:
     A controller has to be initialized with either config_path or config_dict specified. Otherwise, it will not work.
 
     :param event_list: list, a list with names of events that need to be analyzed by the pipeline
+    :param light_curves: a list of event names and their light curves
     :param config_path: string, optional, a path to a YAML file that has the configuration parameters for the controller
     :param config_dict: dictionary, optional, a dictionary containing configuration of the controller
     '''
     def __init__(self,
                  event_list,
                  config_path=None,
-                 config_dict=None):
+                 config_dict=None,
+                 analyst_dicts=None):
+
         self.event_list = event_list
+        self.analyst_dicts = analyst_dicts
+
         if (config_dict != None):
             # READ config_dict
             self.config = config_dict
@@ -39,7 +49,11 @@ class Controller:
             with open(self.config_path, 'r') as file:
                 controller_config = yaml.safe_load(file)
 
-            config = controller_config.get("input")
+            config["events_path"]  = controller_config.get("events_path")
+            config["software_dir"] = controller_config.get("software_dir")
+            config["python_compiler"] = controller_config.get("python_compiler")
+            config["group_processing_limit"] = controller_config.get("group_processing_limit")
+
 
         except Exception as err:
             print(f"Unexpected %s, %s" % (err, type(err)))
@@ -47,36 +61,35 @@ class Controller:
 
         return config
 
-    def create_analysts(self):
-        '''
-        This function creates a list of :class:`MFPipeline.analyst.event_analyst.EventAnalyst` that get one event from
-        the `event_list` assigned to them.
-        '''
-
-        self.event_analysts = []
-        if self.config != None:
-            for event in self.event_list:
-                analyst_path = self.config["events_path"]+"/"+str(event)+"/"
-                self.event_analysts.append(EventAnalyst(event, analyst_path, config_path=analyst_path+"config.yaml"))
-
-
     def launch_analysts(self):
         '''
-        This function starts and parallelizes the work of created :class:`MFPipeline.analyst.event_analyst.EventAnalyst`.
+        This function starts and parallelizes the :class:`MFPipeline.analyst.event_analyst.EventAnalyst`.
 
         :return: Status of work???
         '''
-        # how to parallelize it?
-        # put here something like this:
-        # set_start_method('fork')
-        # iterations = np.random.randint(len(data), size=n_iter)
-        # with Pool() as pool:
-        #     with tqdm(total=n_iter) as pbar:
-        #         for i in pool.imap_unordered(run_single_analyst, iterations):
-        #             results.append(i)
 
-        for analyst in self.event_analysts:
-            analyst.run_single_analyst()
+        # First create all of the commands to run the analysts
+        commands = []
+        for event in self.event_list:
+            if(self.analyst_dicts == None):
+                command = [self.config["python_compiler"], self.config["software_dir"]+"event_analyst.py",
+                           "--event_name", event,
+                           "--analyst_path",  self.config["events_path"]+str(event)+"/",
+                           "--config_path", self.config["events_path"]+str(event)+"/config.yaml"
+                           ]
+            else:
+                command = [self.config["python_compiler"], self.config["software_dir"] + "event_analyst.py",
+                           "--event_name", event,
+                           "--analyst_path", self.config["events_path"] + str(event) + "/",
+                           "--config_dict", str(self.analyst_dicts[event]),
+                           ]
+            commands.append(command)
 
+        #Running analysts in batches
+        with ProcessPoolExecutor(max_workers=self.config["group_processing_limit"] ) as executor:
+            executor.map(run_parallel_analyst, commands)
+            # for result in executor.map(run_parallel_analyst, commands):
+            #     print(result)
+            # print(futures.result())
 
 
