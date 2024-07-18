@@ -18,6 +18,7 @@ class FitAnalyst(Analyst):
     def __init__(self,
                  event_name,
                  analyst_path,
+                 light_curves,
                  config_dict=None,
                  config_path=None):
 
@@ -38,7 +39,7 @@ class FitAnalyst(Analyst):
         :param config_dict: dict, dictionary with analyst config
         '''
 
-        self.n_max = config["fit_analyst"]["n_max"]
+        self.n_max = int(config["fit_analyst"]["n_max"])
 
     def perform_fit(self):
         '''
