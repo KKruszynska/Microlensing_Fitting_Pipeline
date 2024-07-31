@@ -1,4 +1,5 @@
 tests/__pycache__/
+MFPipeline/__pycache__/
 controller_debug.ipynb
 .ipynb_checkpoints/
 tests/test_cmd/output/GDR3-ULEN-025_CMD_Gaia_DR3_Gaia_G.html
@@ -12,8 +13,14 @@ tests/test_controller/GaiaDR3-ULENS-025/GaiaDR3-ULENS-025_CMD_GaiaDR2_Gaia_RP.ht
 tests/test_controller/GaiaDR3-ULENS-025/GaiaDR3-ULENS-025_CMD_GaiaDR3_Gaia_BP.html
 tests/test_controller/GaiaDR3-ULENS-025/GaiaDR3-ULENS-025_CMD_GaiaDR3_Gaia_G.html
 tests/test_controller/GaiaDR3-ULENS-025/GaiaDR3-ULENS-025_CMD_GaiaDR3_Gaia_RP.html
+tests/test_cmd/output/GDR3-ULENS-025_CMD_Gaia_DR3_Gaia_BP.html
+tests/test_cmd/output/GDR3-ULENS-025_CMD_Gaia_DR3_Gaia_G.html
+tests/test_cmd/output/GDR3-ULENS-025_CMD_Gaia_DR3_Gaia_RP.html
+tests/test_cmd/output/GDR3-ULENS-025_analyst.log
+tests/test_cmd/outputGDR3-ULENS-025_analyst.log
 MFPipeline/analyst/__pycache__/
 MFPipeline/controller/__pycache__/
 tests/test_cmd/output/GDR3-ULEN-025_CMD_Gaia_DR3_Gaia_BP.html
+tests/__pycache__/test_cmd_analyst.cpython-311-pytest-8.2.2.pyc
 
 
