@@ -110,7 +110,7 @@ class CmdAnalyst(Analyst):
             self.log.debug("CMD Analyst: Source and blend mags dataframe created.")
 
         except Exception as err:
-            self.log.error(f"CMD Analyst: %s, %s" % (err, type(err)))
+            self.log.exception(f"CMD Analyst: %s, %s" % (err, type(err)))
             data = None
             labels = None
 
@@ -198,7 +198,7 @@ class CmdAnalyst(Analyst):
             self.log.debug("CMD Analyst: Response reformatted to dataframe, labels created.")
 
         except Exception as err:
-            self.log.error(f"CMD Analyst: %s, %s" % (err, type(err)))
+            self.log.exception(f"CMD Analyst: %s, %s" % (err, type(err)))
             data_frame = None
             labels = None
 
@@ -218,7 +218,7 @@ class CmdAnalyst(Analyst):
             self.log.debug("CMD Analyst: Data loaded to dataframe, labels created.")
 
         except Exception as err:
-            self.log.error(f"CMD Analyst: %s, %s" % (err, type(err)))
+            self.log.exception(f"CMD Analyst: %s, %s" % (err, type(err)))
             data = None
             labels = None
 
@@ -239,7 +239,7 @@ class CmdAnalyst(Analyst):
 
         self.log.debug("CMD Analyst: Plotting CMD started.")
         for i in range(len(cmd_labels)):
-
+            self.log.debug("CMD Analyst: Plotting CMD for labels: %s"%cmd_labels[i])
             colours = {"baseline": "#000000",  # black
                        "source": "#E69F00",  # orange
                        "blend": "#56B4E9",  # sky blue
@@ -310,7 +310,7 @@ class CmdAnalyst(Analyst):
                 cmd_status = True
 
             except Exception as err:
-                self.log.error(f"CMD Analyst: %s, %s" % (err, type(err)))
+                self.log.exception(f"CMD Analyst: %s, %s" % (err, type(err)))
                 cmd_status = False
 
         return cmd_status
