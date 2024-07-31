@@ -1,10 +1,11 @@
 import pandas as pd
+from MFPipeline import logs
 
 scenario_file = {
         "path_input" : "tests/test_cmd/input/gdr3-ulens-025_result.csv",
         "separator" : ",",
-        "path_outputs": "tests/test_cmd/output",
-        "event_name": "GDR3-ULEN-025",
+        "path_outputs": "tests/test_cmd/output/",
+        "event_name": "GDR3-ULENS-025",
         "ra": 260.8781,
         "dec": -27.3788,
         "catalogue_name": "Gaia_DR3",
@@ -94,11 +95,13 @@ class testCmdAnalyst():
         cats.append(dict)
         config["cmd_analyst"] = {}
         config["cmd_analyst"]["catalogues"] = cats
-        analyst = CmdAnalyst(config["event_name"], path_outputs, catalogue, light_curve_data, config_dict=config)
+        log = logs.start_analyst_log(config["event_name"], path_outputs, 'debug')
+        analyst = CmdAnalyst(config["event_name"], path_outputs, catalogue, light_curve_data, log, config_dict=config)
 
         source_data, source_labels = analyst.transform_source_data()
         cmd_data, cmd_labels = analyst.load_catalogue_data()
         plot_status = analyst.plot_cmd(source_data, source_labels, cmd_data, cmd_labels)
+        logs.close_log(log)
 
         assert plot_status == True
 
@@ -135,9 +138,12 @@ class testCmdAnalyst():
         cats.append(dict)
         config["cmd_analyst"] = {}
         config["cmd_analyst"]["catalogues"] = cats
-        analyst = CmdAnalyst(config["event_name"], path_outputs, catalogue, light_curve_data, config_dict=config)
+        log = logs.start_analyst_log(config["event_name"], path_outputs, 'debug', stream=True)
+        analyst = CmdAnalyst(config["event_name"], path_outputs, catalogue, light_curve_data, log, config_dict=config)
 
         cmd_data, cmd_labels = analyst.load_catalogue_data()
+
+        logs.close_log(log)
 
         assert type(cmd_data) == pd.DataFrame
         assert type(cmd_labels) == list
@@ -174,9 +180,12 @@ class testCmdAnalyst():
         cats.append(dict)
         config["cmd_analyst"] = {}
         config["cmd_analyst"]["catalogues"] = cats
-        analyst = CmdAnalyst(config["event_name"], path_outputs, catalogue, light_curve_data, config_dict=config)
+        log = logs.start_analyst_log(config["event_name"], path_outputs, 'debug', stream=True)
+        analyst = CmdAnalyst(config["event_name"], path_outputs, catalogue, light_curve_data, log, config_dict=config)
 
         source_data, source_labels = analyst.transform_source_data()
+
+        logs.close_log(log)
 
         assert type(source_data) ==  pd.DataFrame
         assert type(source_labels) ==  list
