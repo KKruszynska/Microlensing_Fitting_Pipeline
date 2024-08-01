@@ -42,7 +42,7 @@ class EventAnalyst(Analyst):
         # Analyst.__init__(self, event_name, analyst_path, config_dict=config_dict, config_path=config_path)
 
         # start
-        self.log = logs.start_analyst_log(event_name, analyst_path, log_level, stream=stream)
+        self.log = logs.start_log(analyst_path, log_level, event_name=event_name, stream=stream)
         self.log.info("-------------------------------------------")
         self.log.info("Event Analyst: Analyzing event %s"%(event_name))
         self.log.info("-------------------------------------------")
@@ -168,6 +168,7 @@ class EventAnalyst(Analyst):
         fit_status = False
         self.log.info("Event Analyst: Starting Fit Analyst.")
         fit_analyst = FitAnalyst(self.config["event_name"], self.analyst_path, self.light_curves,
+                                 self.log,
                                  config_dict=self.config
                                  )
         self.log.debug("Event Analyst: Fit Analyst created.")
@@ -196,6 +197,7 @@ class EventAnalyst(Analyst):
             self.log.debug("Event Analyst: Got light curve data.")
 
             cmd_analyst = CmdAnalyst(self.config["event_name"], self.analyst_path, catalogue, light_curve_data,
+                                     self.log,
                                      config_dict=self.config
                                      )
             self.log.debug("Event Analyst: CMD Analyst created.")
@@ -222,37 +224,37 @@ if __name__ == "__main__":
     error = False
     error_string = ""
 
-    if ("--event_name"):
+    if "--event_name" in sys.argv:
         idx = sys.argv.index("--event_name")
         event += sys.argv[idx + 1]
     else:
         error = True
         error_string += "Event Analyst: Error! Missing event name!\n"
 
-    if ("--analyst_path"):
+    if "--analyst_path" in sys.argv:
         idx = sys.argv.index("--analyst_path")
         analyst_path += sys.argv[idx + 1]
     else:
         error = True
         error_string += "Event Analyst: Error! Missing analyst path!\n"
 
-    if ("--log_level"):
+    if "--log_level" in sys.argv:
         idx = sys.argv.index("--log_level")
         log_level += sys.argv[idx + 1]
     else:
         error = True
         error_string += "Event Analyst: Error! Missing log level information!\n"
 
-    if ("--stream"):
+    if "--stream" in sys.argv:
         idx = sys.argv.index("--stream")
         stream = bool(sys.argv[idx + 1])
 
-    if ("--config_path" in sys.argv):
+    if "--config_path" in sys.argv:
         event_analyst = EventAnalyst(event, analyst_path, log_level,
                                      config_path=analyst_path + "config.yaml",
                                      stream=stream
                                      )
-    elif ("--config_dict" in sys.argv):
+    elif "--config_dict" in sys.argv:
         idx = sys.argv.index("--config_dict")
         config = json.loads(sys.argv[idx + 1])
         event_analyst = EventAnalyst(event, analyst_path, log_level,
@@ -264,7 +266,7 @@ if __name__ == "__main__":
 
     if (error):
         if ((len(log_level) > 0) and (len(analyst_path) > 0)):
-            log = logs.start_analyst_log(event_name, analyst_path, log_level, stream=stream)
+            log = logs.start_analyst_log(event, analyst_path, log_level, stream=stream)
             log.error("Event Analyst: Error encountered while running an Event Analyst.\n")
             log.error(error_string)
             logs.close_log(log)
