@@ -1,6 +1,7 @@
 import logging
 
 import sys
+import os
 
 def start_log(log_location, log_type, event_name=None, stream=False):
     '''
@@ -40,6 +41,9 @@ def start_log(log_location, log_type, event_name=None, stream=False):
             filename = log_location + '%s_analyst.log' % event_name
         else:
             filename = log_location + 'controller.log'
+
+        if os.path.isdir(log_location) == False:
+            os.makedirs(log_location)
         fh = logging.FileHandler(filename, encoding='utf-8')
         fh.setLevel(log_level)
         fh.setFormatter(formatter)
