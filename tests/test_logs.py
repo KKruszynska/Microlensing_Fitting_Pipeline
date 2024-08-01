@@ -6,28 +6,15 @@ class testLogs():
     '''
     Class with tests
     '''
-    def test_create_log_debug(self):
-        log = logs.start_analyst_log("test_debug", "tests/test_logs/", "debug")
-        log.debug("Hello! This is debug.")
-        log.info("Hello! This is info.")
-        log.error("Hello! This is error.")
-        logs.close_log(log)
-
-    def test_create_log_info(self):
-        log = logs.start_analyst_log("test_info", "tests/test_logs/", "info")
-        log.debug("Hello! This is debug.")
-        log.info("Hello! This is info.")
-        log.error("Hello! This is error.")
-        logs.close_log(log)
-
-    def test_create_log_error(self):
-        log = logs.start_analyst_log("test_error", "tests/test_logs/", "error")
-        log.debug("Hello! This is debug.")
-        log.info("Hello! This is info.")
-        log.error("Hello! This is error.")
+    def test_create_log(self, log_level):
+        log = logs.start_log("tests/test_logs/", log_level, event_name="test_%s"%log_level)
+        log.debug("Hello! This is a debug.")
+        log.info("Hello! This is an info.")
+        log.error("Hello! This is an error.")
+        # log.exception("Hello! This is an exeption.")
         logs.close_log(log)
 
 def test_run():
-    testLogs().test_create_log_debug()
-    # testLogs().test_create_log_info()
-    # testLogs().test_create_log_error()
+    test = testLogs()
+    test.test_create_log("debug")
+    test.test_create_log("error")

@@ -1,20 +1,22 @@
 import logging
 
-import os
 import sys
 
-def start_analyst_log(event_name, log_location, log_type, stream=False):
+def start_log(log_location, log_type, event_name=None, stream=False):
     '''
-    Function that creates logs for analysts.
-    :param event_name: name of event assigned to the analyst
+    Function that creates logs for analysts or controller.
     :param log_location: str, location of the log.
     :param log_type: str, which level of logging to initialize.
+    :param event_name: str, optional, name of event assigned to the analyst
     :param stream: optional, boolean, should the log be accessible through Kubernetes?
 
     :return: python logger
     '''
 
-    log = logging.getLogger('analyst_log')
+    if (event_name != None):
+        log = logging.getLogger('analyst_log')
+    else:
+        log = logging.getLogger('controller_log')
 
     if (log_type == 'debug'):
         log_level = logging.DEBUG
@@ -34,7 +36,10 @@ def start_analyst_log(event_name, log_location, log_type, stream=False):
         ch.setFormatter(formatter)
         log.addHandler(ch)
     else:
-        filename = log_location + '%s_analyst.log' % event_name
+        if (event_name != None):
+            filename = log_location + '%s_analyst.log' % event_name
+        else:
+            filename = log_location + 'controller.log'
         fh = logging.FileHandler(filename, encoding='utf-8')
         fh.setLevel(log_level)
         fh.setFormatter(formatter)
@@ -44,12 +49,11 @@ def start_analyst_log(event_name, log_location, log_type, stream=False):
         
     return log
 
-
 def close_log(log):
     '''
     Function that closes a log.
 
-    :param log: log to close
+    :param log: logger instance to close
     '''
 
     for handler in log.handlers:
