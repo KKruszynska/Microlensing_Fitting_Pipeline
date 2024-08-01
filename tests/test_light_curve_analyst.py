@@ -66,7 +66,7 @@ class testLCAnalyst:
                 light_curve = entry["lc"]
                 light_curves.append((config["event_name"], light_curve, survey, band))
 
-        log = logs.start_analyst_log(config["event_name"], path_outputs, 'debug', stream=True)
+        log = logs.start_analyst_log(path_outputs, 'debug', event_name=config["event_name"], stream=True)
         analyst = LightCurveAnalyst(config["event_name"], path_outputs, light_curves, log, config_dict=config)
         n_max_config = analyst.config["lc_analyst"]["n_max"]
         logs.close_log(log)
@@ -96,7 +96,7 @@ class testLCAnalyst:
                 light_curve = entry["lc"]
                 light_curves.append((config["event_name"], light_curve, survey, band))
 
-        log = logs.start_analyst_log(config["event_name"], path_outputs, 'debug')
+        log = logs.start_analyst_log(path_outputs, 'debug', event_name=config["event_name"])
         analyst = LightCurveAnalyst(config["event_name"], path_outputs, light_curves, log, config_dict=config)
         status = analyst.perform_quality_check()
         logs.close_log(log)
