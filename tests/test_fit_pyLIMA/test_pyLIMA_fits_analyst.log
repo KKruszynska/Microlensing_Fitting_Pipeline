@@ -1,0 +1,615 @@
+2024-08-02 17:03:07.246 - INFO - Processing started. Opened log.
+2024-08-02 17:03:07.246 - INFO - Creating fitPyLIMA instance.
+2024-08-02 17:03:07.246 - INFO - Setting up event.
+2024-08-02 17:03:07.305 - INFO - Event set up.
+2024-08-02 17:03:07.305 - INFO - Processing complete.
+
+2024-08-02 17:03:38.200 - INFO - Processing started. Opened log.
+2024-08-02 17:03:38.200 - INFO - Creating fitPyLIMA instance.
+2024-08-02 17:03:38.200 - INFO - Setting up event.
+2024-08-02 17:03:38.258 - INFO - Event set up.
+2024-08-02 17:03:38.258 - INFO - Processing complete.
+
+2024-08-02 17:04:29.834 - INFO - Processing started. Opened log.
+2024-08-02 17:04:29.834 - INFO - Creating fitPyLIMA instance.
+2024-08-02 17:04:29.834 - INFO - Setting up event.
+2024-08-02 17:05:15.320 - INFO - Processing started. Opened log.
+2024-08-02 17:05:15.321 - INFO - Creating fitPyLIMA instance.
+2024-08-02 17:05:15.321 - INFO - Setting up event.
+2024-08-02 17:05:56.175 - INFO - Processing started. Opened log.
+2024-08-02 17:05:56.175 - INFO - Creating fitPyLIMA instance.
+2024-08-02 17:05:56.175 - INFO - Setting up event.
+2024-08-02 17:05:56.233 - INFO - Event set up.
+2024-08-02 17:05:56.233 - INFO - Processing complete.
+
+2024-08-02 17:06:13.716 - INFO - Processing started. Opened log.
+2024-08-02 17:06:13.716 - INFO - Creating fitPyLIMA instance.
+2024-08-02 17:06:13.716 - INFO - Setting up event.
+2024-08-02 17:06:13.775 - DEBUG - Survey to align data to: Gaia
+2024-08-02 17:06:13.775 - INFO - Event set up.
+2024-08-02 17:06:13.775 - INFO - Processing complete.
+
+2024-08-26 11:39:38.235 - INFO - Processing started. Opened log.
+2024-08-26 11:39:38.236 - INFO - Creating fitPyLIMA instance.
+2024-08-26 11:39:38.236 - INFO - Setting up event.
+2024-08-26 11:39:38.298 - DEBUG - Survey to align data to: Gaia
+2024-08-26 11:39:38.298 - INFO - Event set up.
+2024-08-26 11:39:38.298 - INFO - Processing complete.
+
+2024-08-26 11:51:39.883 - INFO - Processing started. Opened log.
+2024-08-26 11:51:39.883 - INFO - Creating fitPyLIMA instance.
+2024-08-26 11:51:39.883 - INFO - Setting up event.
+2024-08-26 11:51:39.942 - DEBUG - Survey to align data to: Gaia
+2024-08-26 11:51:39.942 - INFO - Event set up.
+2024-08-26 11:51:39.942 - INFO - Processing complete.
+
+2024-08-26 11:51:39.943 - INFO - Processing started. Opened log.
+2024-08-26 11:51:39.943 - INFO - Processing started. Opened log.
+2024-08-26 11:51:39.962 - DEBUG - Survey to align data to: Gaia
+2024-08-26 11:51:39.962 - DEBUG - Survey to align data to: Gaia
+2024-08-26 11:51:39.962 - INFO - Fitting event.
+2024-08-26 11:51:39.962 - INFO - Fitting event.
+2024-08-26 12:03:20.695 - INFO - Processing started. Opened log.
+2024-08-26 12:03:20.695 - INFO - Creating fitPyLIMA instance.
+2024-08-26 12:03:20.695 - INFO - Setting up event.
+2024-08-26 12:03:20.754 - DEBUG - Survey to align data to: Gaia
+2024-08-26 12:03:20.754 - INFO - Event set up.
+2024-08-26 12:03:20.754 - INFO - Processing complete.
+
+2024-08-26 12:03:20.754 - INFO - Processing started. Opened log.
+2024-08-26 12:03:20.754 - INFO - Processing started. Opened log.
+2024-08-26 12:03:20.755 - INFO - Fitting event.
+2024-08-26 12:03:20.755 - INFO - Fitting event.
+2024-08-26 12:03:20.772 - DEBUG - Survey to align data to: Gaia
+2024-08-26 12:03:20.772 - DEBUG - Survey to align data to: Gaia
+2024-08-26 12:03:20.772 - INFO - Fitting without microlensing parallax.
+2024-08-26 12:03:20.772 - INFO - Fitting without microlensing parallax.
+2024-08-26 12:03:20.785 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 12:03:20.785 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 12:03:20.785 - INFO - Staring fit.
+2024-08-26 12:03:20.785 - INFO - Staring fit.
+2024-08-26 12:03:20.863 - INFO - Fitting finished
+2024-08-26 12:03:20.863 - INFO - Fitting finished
+2024-08-26 12:03:20.863 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 12:03:20.863 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 12:15:50.475 - INFO - Processing started. Opened log.
+2024-08-26 12:15:50.475 - INFO - Creating fitPyLIMA instance.
+2024-08-26 12:15:50.475 - INFO - Setting up event.
+2024-08-26 12:15:50.533 - DEBUG - Survey to align data to: Gaia
+2024-08-26 12:15:50.533 - INFO - Event set up.
+2024-08-26 12:15:50.533 - INFO - Processing complete.
+
+2024-08-26 12:15:50.533 - INFO - Processing started. Opened log.
+2024-08-26 12:15:50.533 - INFO - Processing started. Opened log.
+2024-08-26 12:15:50.533 - INFO - Fitting event.
+2024-08-26 12:15:50.533 - INFO - Fitting event.
+2024-08-26 12:15:50.552 - DEBUG - Survey to align data to: Gaia
+2024-08-26 12:15:50.552 - DEBUG - Survey to align data to: Gaia
+2024-08-26 12:15:50.552 - INFO - Fitting without microlensing parallax.
+2024-08-26 12:15:50.552 - INFO - Fitting without microlensing parallax.
+2024-08-26 12:15:50.561 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 12:15:50.561 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 12:15:50.562 - INFO - Staring fit.
+2024-08-26 12:15:50.562 - INFO - Staring fit.
+2024-08-26 12:15:50.615 - INFO - Fitting finished
+2024-08-26 12:15:50.615 - INFO - Fitting finished
+2024-08-26 12:15:50.615 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 12:15:50.615 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 12:16:51.034 - INFO - Processing started. Opened log.
+2024-08-26 12:16:51.034 - INFO - Creating fitPyLIMA instance.
+2024-08-26 12:16:51.034 - INFO - Setting up event.
+2024-08-26 12:16:51.094 - DEBUG - Survey to align data to: Gaia
+2024-08-26 12:16:51.094 - INFO - Event set up.
+2024-08-26 12:16:51.094 - INFO - Processing complete.
+
+2024-08-26 12:16:51.094 - INFO - Processing started. Opened log.
+2024-08-26 12:16:51.094 - INFO - Processing started. Opened log.
+2024-08-26 12:16:51.094 - INFO - Fitting event.
+2024-08-26 12:16:51.094 - INFO - Fitting event.
+2024-08-26 12:16:51.113 - DEBUG - Survey to align data to: Gaia
+2024-08-26 12:16:51.113 - DEBUG - Survey to align data to: Gaia
+2024-08-26 12:16:51.114 - INFO - Fitting without microlensing parallax.
+2024-08-26 12:16:51.114 - INFO - Fitting without microlensing parallax.
+2024-08-26 12:16:51.123 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 12:16:51.123 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 12:16:51.123 - INFO - Staring fit.
+2024-08-26 12:16:51.123 - INFO - Staring fit.
+2024-08-26 12:16:51.176 - INFO - Fitting finished
+2024-08-26 12:16:51.176 - INFO - Fitting finished
+2024-08-26 12:16:51.176 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 12:16:51.176 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 12:58:12.937 - INFO - Processing started. Opened log.
+2024-08-26 12:58:12.937 - INFO - Creating fitPyLIMA instance.
+2024-08-26 12:58:12.937 - INFO - Setting up event.
+2024-08-26 12:58:12.997 - DEBUG - Survey to align data to: Gaia
+2024-08-26 12:58:12.997 - INFO - Event set up.
+2024-08-26 12:58:12.997 - INFO - Processing complete.
+
+2024-08-26 12:58:12.998 - INFO - Processing started. Opened log.
+2024-08-26 12:58:12.998 - INFO - Processing started. Opened log.
+2024-08-26 12:58:12.998 - INFO - Fitting event.
+2024-08-26 12:58:12.998 - INFO - Fitting event.
+2024-08-26 12:58:13.017 - DEBUG - Survey to align data to: Gaia
+2024-08-26 12:58:13.017 - DEBUG - Survey to align data to: Gaia
+2024-08-26 12:58:13.017 - INFO - Fitting without microlensing parallax.
+2024-08-26 12:58:13.017 - INFO - Fitting without microlensing parallax.
+2024-08-26 12:58:13.027 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 12:58:13.027 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 12:58:13.027 - INFO - Staring fit.
+2024-08-26 12:58:13.027 - INFO - Staring fit.
+2024-08-26 12:58:13.083 - INFO - Fitting finished
+2024-08-26 12:58:13.083 - INFO - Fitting finished
+2024-08-26 12:58:13.084 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 12:58:13.084 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 12:59:43.197 - INFO - Processing started. Opened log.
+2024-08-26 12:59:43.197 - INFO - Creating fitPyLIMA instance.
+2024-08-26 12:59:43.197 - INFO - Setting up event.
+2024-08-26 12:59:43.256 - DEBUG - Survey to align data to: Gaia
+2024-08-26 12:59:43.256 - INFO - Event set up.
+2024-08-26 12:59:43.256 - INFO - Processing complete.
+
+2024-08-26 12:59:43.256 - INFO - Processing started. Opened log.
+2024-08-26 12:59:43.256 - INFO - Processing started. Opened log.
+2024-08-26 12:59:43.256 - INFO - Fitting event.
+2024-08-26 12:59:43.256 - INFO - Fitting event.
+2024-08-26 12:59:43.275 - DEBUG - Survey to align data to: Gaia
+2024-08-26 12:59:43.275 - DEBUG - Survey to align data to: Gaia
+2024-08-26 12:59:43.275 - INFO - Fitting without microlensing parallax.
+2024-08-26 12:59:43.275 - INFO - Fitting without microlensing parallax.
+2024-08-26 12:59:43.284 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 12:59:43.284 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 12:59:43.284 - INFO - Staring fit.
+2024-08-26 12:59:43.284 - INFO - Staring fit.
+2024-08-26 12:59:43.337 - INFO - Fitting finished
+2024-08-26 12:59:43.337 - INFO - Fitting finished
+2024-08-26 12:59:43.337 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 12:59:43.337 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 13:00:13.780 - INFO - Processing started. Opened log.
+2024-08-26 13:00:13.780 - INFO - Creating fitPyLIMA instance.
+2024-08-26 13:00:13.780 - INFO - Setting up event.
+2024-08-26 13:00:13.839 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:00:13.839 - INFO - Event set up.
+2024-08-26 13:00:13.839 - INFO - Processing complete.
+
+2024-08-26 13:00:13.839 - INFO - Processing started. Opened log.
+2024-08-26 13:00:13.839 - INFO - Processing started. Opened log.
+2024-08-26 13:00:13.839 - INFO - Fitting event.
+2024-08-26 13:00:13.839 - INFO - Fitting event.
+2024-08-26 13:00:13.858 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:00:13.858 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:00:13.858 - INFO - Fitting without microlensing parallax.
+2024-08-26 13:00:13.858 - INFO - Fitting without microlensing parallax.
+2024-08-26 13:00:13.868 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 13:00:13.868 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 13:00:13.869 - INFO - Staring fit.
+2024-08-26 13:00:13.869 - INFO - Staring fit.
+2024-08-26 13:00:13.921 - INFO - Fitting finished
+2024-08-26 13:00:13.921 - INFO - Fitting finished
+2024-08-26 13:00:13.922 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 13:00:13.922 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 13:00:13.928 - INFO - Fitting finished.
+2024-08-26 13:00:13.928 - INFO - Fitting finished.
+2024-08-26 13:00:13.929 - DEBUG - Fitted parameters:
+2024-08-26 13:00:13.929 - DEBUG - Fitted parameters:
+2024-08-26 13:00:13.929 - INFO - Processing complete.
+
+2024-08-26 13:00:13.929 - INFO - Processing complete.
+
+2024-08-26 13:00:13.929 - INFO - Processing complete.
+
+2024-08-26 13:00:13.929 - INFO - Processing complete.
+
+2024-08-26 13:00:50.848 - INFO - Processing started. Opened log.
+2024-08-26 13:00:50.848 - INFO - Creating fitPyLIMA instance.
+2024-08-26 13:00:50.848 - INFO - Setting up event.
+2024-08-26 13:00:50.906 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:00:50.906 - INFO - Event set up.
+2024-08-26 13:00:50.906 - INFO - Processing complete.
+
+2024-08-26 13:00:50.906 - INFO - Processing started. Opened log.
+2024-08-26 13:00:50.906 - INFO - Processing started. Opened log.
+2024-08-26 13:00:50.906 - INFO - Fitting event.
+2024-08-26 13:00:50.906 - INFO - Fitting event.
+2024-08-26 13:00:50.924 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:00:50.924 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:00:50.924 - INFO - Fitting without microlensing parallax.
+2024-08-26 13:00:50.924 - INFO - Fitting without microlensing parallax.
+2024-08-26 13:00:50.933 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 13:00:50.933 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 13:00:50.934 - INFO - Staring fit.
+2024-08-26 13:00:50.934 - INFO - Staring fit.
+2024-08-26 13:00:50.986 - INFO - Fitting finished
+2024-08-26 13:00:50.986 - INFO - Fitting finished
+2024-08-26 13:00:50.986 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 13:00:50.986 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 13:00:50.991 - INFO - Fitting finished.
+2024-08-26 13:00:50.991 - INFO - Fitting finished.
+2024-08-26 13:00:50.992 - DEBUG - Fitted parameters:
+2024-08-26 13:00:50.992 - DEBUG - Fitted parameters:
+2024-08-26 13:00:50.992 - INFO - Processing complete.
+
+2024-08-26 13:00:50.992 - INFO - Processing complete.
+
+2024-08-26 13:00:50.992 - INFO - Processing complete.
+
+2024-08-26 13:00:50.992 - INFO - Processing complete.
+
+2024-08-26 13:12:39.670 - INFO - Processing started. Opened log.
+2024-08-26 13:12:39.670 - INFO - Creating fitPyLIMA instance.
+2024-08-26 13:12:39.670 - INFO - Setting up event.
+2024-08-26 13:12:39.732 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:12:39.732 - INFO - Event set up.
+2024-08-26 13:12:39.732 - INFO - Processing complete.
+
+2024-08-26 13:12:39.732 - INFO - Processing started. Opened log.
+2024-08-26 13:12:39.732 - INFO - Processing started. Opened log.
+2024-08-26 13:12:39.732 - INFO - Fitting event.
+2024-08-26 13:12:39.732 - INFO - Fitting event.
+2024-08-26 13:12:39.750 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:12:39.750 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:12:39.751 - INFO - Fitting without microlensing parallax.
+2024-08-26 13:12:39.751 - INFO - Fitting without microlensing parallax.
+2024-08-26 13:12:39.761 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 13:12:39.761 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 13:12:39.762 - INFO - Staring fit.
+2024-08-26 13:12:39.762 - INFO - Staring fit.
+2024-08-26 13:12:39.817 - INFO - Fitting finished
+2024-08-26 13:12:39.817 - INFO - Fitting finished
+2024-08-26 13:12:39.817 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 13:12:39.817 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 13:12:39.823 - INFO - Fitting finished.
+2024-08-26 13:12:39.823 - INFO - Fitting finished.
+2024-08-26 13:12:39.823 - DEBUG - Fitted parameters:
+2024-08-26 13:12:39.823 - DEBUG - Fitted parameters:
+2024-08-26 13:12:39.823 - INFO - Processing complete.
+
+2024-08-26 13:12:39.823 - INFO - Processing complete.
+
+2024-08-26 13:12:39.823 - INFO - Processing complete.
+
+2024-08-26 13:12:39.823 - INFO - Processing complete.
+
+2024-08-26 13:13:03.764 - INFO - Processing started. Opened log.
+2024-08-26 13:13:03.764 - INFO - Creating fitPyLIMA instance.
+2024-08-26 13:13:03.764 - INFO - Setting up event.
+2024-08-26 13:13:03.825 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:13:03.825 - INFO - Event set up.
+2024-08-26 13:13:03.825 - INFO - Processing complete.
+
+2024-08-26 13:13:03.825 - INFO - Processing started. Opened log.
+2024-08-26 13:13:03.825 - INFO - Processing started. Opened log.
+2024-08-26 13:13:03.825 - INFO - Fitting event.
+2024-08-26 13:13:03.825 - INFO - Fitting event.
+2024-08-26 13:13:03.844 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:13:03.844 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:13:03.844 - INFO - Fitting without microlensing parallax.
+2024-08-26 13:13:03.844 - INFO - Fitting without microlensing parallax.
+2024-08-26 13:13:03.853 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 13:13:03.853 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 13:13:03.853 - INFO - Staring fit.
+2024-08-26 13:13:03.853 - INFO - Staring fit.
+2024-08-26 13:13:03.907 - INFO - Fitting finished
+2024-08-26 13:13:03.907 - INFO - Fitting finished
+2024-08-26 13:13:03.907 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 13:13:03.907 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 13:13:03.913 - INFO - Fitting finished.
+2024-08-26 13:13:03.913 - INFO - Fitting finished.
+2024-08-26 13:13:03.913 - DEBUG - Fitted parameters:
+2024-08-26 13:13:03.913 - DEBUG - Fitted parameters:
+2024-08-26 13:13:03.913 - INFO - Processing complete.
+
+2024-08-26 13:13:03.913 - INFO - Processing complete.
+
+2024-08-26 13:13:03.913 - INFO - Processing complete.
+
+2024-08-26 13:13:03.913 - INFO - Processing complete.
+
+2024-08-26 13:14:22.417 - INFO - Processing started. Opened log.
+2024-08-26 13:14:22.417 - INFO - Creating fitPyLIMA instance.
+2024-08-26 13:14:22.417 - INFO - Setting up event.
+2024-08-26 13:14:22.479 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:14:22.479 - INFO - Event set up.
+2024-08-26 13:14:22.479 - INFO - Processing complete.
+
+2024-08-26 13:14:22.480 - INFO - Processing started. Opened log.
+2024-08-26 13:14:22.480 - INFO - Processing started. Opened log.
+2024-08-26 13:14:22.480 - INFO - Fitting event.
+2024-08-26 13:14:22.480 - INFO - Fitting event.
+2024-08-26 13:14:22.499 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:14:22.499 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:14:22.499 - INFO - Fitting without microlensing parallax.
+2024-08-26 13:14:22.499 - INFO - Fitting without microlensing parallax.
+2024-08-26 13:14:22.509 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 13:14:22.509 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 13:14:22.509 - INFO - Staring fit.
+2024-08-26 13:14:22.509 - INFO - Staring fit.
+2024-08-26 13:14:22.568 - INFO - Fitting finished
+2024-08-26 13:14:22.568 - INFO - Fitting finished
+2024-08-26 13:14:22.568 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 13:14:22.568 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 13:14:50.444 - INFO - Processing started. Opened log.
+2024-08-26 13:14:50.444 - INFO - Creating fitPyLIMA instance.
+2024-08-26 13:14:50.444 - INFO - Setting up event.
+2024-08-26 13:14:50.503 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:14:50.504 - INFO - Event set up.
+2024-08-26 13:14:50.504 - INFO - Processing complete.
+
+2024-08-26 13:14:50.504 - INFO - Processing started. Opened log.
+2024-08-26 13:14:50.504 - INFO - Processing started. Opened log.
+2024-08-26 13:14:50.504 - INFO - Fitting event.
+2024-08-26 13:14:50.504 - INFO - Fitting event.
+2024-08-26 13:14:50.523 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:14:50.523 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:14:50.523 - INFO - Fitting without microlensing parallax.
+2024-08-26 13:14:50.523 - INFO - Fitting without microlensing parallax.
+2024-08-26 13:14:50.533 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 13:14:50.533 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 13:14:50.533 - INFO - Staring fit.
+2024-08-26 13:14:50.533 - INFO - Staring fit.
+2024-08-26 13:14:50.587 - INFO - Fitting finished
+2024-08-26 13:14:50.587 - INFO - Fitting finished
+2024-08-26 13:14:50.587 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 13:14:50.587 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 13:14:50.595 - INFO - Fitting finished.
+2024-08-26 13:14:50.595 - INFO - Fitting finished.
+2024-08-26 13:14:50.596 - DEBUG - Fitted parameters:
+2024-08-26 13:14:50.596 - DEBUG - Fitted parameters:
+2024-08-26 13:14:50.596 - INFO - Processing complete.
+
+2024-08-26 13:14:50.596 - INFO - Processing complete.
+
+2024-08-26 13:14:50.596 - INFO - Processing complete.
+
+2024-08-26 13:14:50.596 - INFO - Processing complete.
+
+2024-08-26 13:48:15.166 - INFO - Processing started. Opened log.
+2024-08-26 13:48:15.166 - INFO - Creating fitPyLIMA instance.
+2024-08-26 13:48:15.166 - INFO - Setting up event.
+2024-08-26 13:48:15.226 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:48:15.227 - INFO - Event set up.
+2024-08-26 13:48:15.227 - INFO - Processing complete.
+
+2024-08-26 13:48:15.227 - INFO - Processing started. Opened log.
+2024-08-26 13:48:15.227 - INFO - Processing started. Opened log.
+2024-08-26 13:48:15.227 - INFO - Fitting event.
+2024-08-26 13:48:15.227 - INFO - Fitting event.
+2024-08-26 13:48:15.244 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:48:15.244 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:48:15.245 - INFO - Fitting without microlensing parallax.
+2024-08-26 13:48:15.245 - INFO - Fitting without microlensing parallax.
+2024-08-26 13:48:15.254 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 13:48:15.254 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 13:48:15.254 - INFO - Staring fit.
+2024-08-26 13:48:15.254 - INFO - Staring fit.
+2024-08-26 13:48:15.326 - INFO - Fitting finished
+2024-08-26 13:48:15.326 - INFO - Fitting finished
+2024-08-26 13:48:15.326 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 13:48:15.326 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 13:48:15.335 - INFO - Fitting finished.
+2024-08-26 13:48:15.335 - INFO - Fitting finished.
+2024-08-26 13:48:15.335 - DEBUG - Fitted parameters: t_0 = 2457492.18+-1.33, u_0 = 0.153+-0.048, t_E = 138.65+-21.33
+2024-08-26 13:48:15.335 - DEBUG - Fitted parameters: t_0 = 2457492.18+-1.33, u_0 = 0.153+-0.048, t_E = 138.65+-21.33
+2024-08-26 13:50:12.729 - INFO - Processing started. Opened log.
+2024-08-26 13:50:12.729 - INFO - Creating fitPyLIMA instance.
+2024-08-26 13:50:12.729 - INFO - Setting up event.
+2024-08-26 13:50:12.790 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:50:12.790 - INFO - Event set up.
+2024-08-26 13:50:12.790 - INFO - Processing complete.
+
+2024-08-26 13:50:12.790 - INFO - Processing started. Opened log.
+2024-08-26 13:50:12.790 - INFO - Processing started. Opened log.
+2024-08-26 13:50:12.790 - INFO - Fitting event.
+2024-08-26 13:50:12.790 - INFO - Fitting event.
+2024-08-26 13:50:12.810 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:50:12.810 - DEBUG - Survey to align data to: Gaia
+2024-08-26 13:50:12.810 - INFO - Fitting without microlensing parallax.
+2024-08-26 13:50:12.810 - INFO - Fitting without microlensing parallax.
+2024-08-26 13:50:12.821 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 13:50:12.821 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 13:50:12.821 - INFO - Staring fit.
+2024-08-26 13:50:12.821 - INFO - Staring fit.
+2024-08-26 13:50:12.875 - INFO - Fitting finished
+2024-08-26 13:50:12.875 - INFO - Fitting finished
+2024-08-26 13:50:12.875 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 13:50:12.875 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 13:50:12.881 - INFO - Fitting finished.
+2024-08-26 13:50:12.881 - INFO - Fitting finished.
+2024-08-26 13:50:12.882 - DEBUG - Fitted parameters: t_0 = 2457492.18+-1.33, u_0 = 0.153+-0.048, t_E = 138.65+-21.33
+2024-08-26 13:50:12.882 - DEBUG - Fitted parameters: t_0 = 2457492.18+-1.33, u_0 = 0.153+-0.048, t_E = 138.65+-21.33
+2024-08-26 13:50:12.882 - INFO - Processing complete.
+
+2024-08-26 13:50:12.882 - INFO - Processing complete.
+
+2024-08-26 13:50:12.882 - INFO - Processing complete.
+
+2024-08-26 13:50:12.882 - INFO - Processing complete.
+
+2024-08-26 15:20:41.488 - INFO - Processing started. Opened log.
+2024-08-26 15:20:41.489 - INFO - Creating fitPyLIMA instance.
+2024-08-26 15:20:41.489 - INFO - Setting up event.
+2024-08-26 15:20:41.554 - DEBUG - Survey to align data to: Gaia
+2024-08-26 15:20:41.554 - INFO - Event set up.
+2024-08-26 15:20:41.554 - INFO - Processing complete.
+
+2024-08-26 15:20:41.555 - INFO - Processing started. Opened log.
+2024-08-26 15:20:41.555 - INFO - Processing started. Opened log.
+2024-08-26 15:20:41.555 - INFO - Fitting event.
+2024-08-26 15:20:41.555 - INFO - Fitting event.
+2024-08-26 15:20:41.574 - DEBUG - Survey to align data to: Gaia
+2024-08-26 15:20:41.574 - DEBUG - Survey to align data to: Gaia
+2024-08-26 15:20:41.574 - INFO - Fitting without microlensing parallax.
+2024-08-26 15:20:41.574 - INFO - Fitting without microlensing parallax.
+2024-08-26 15:20:41.586 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 15:20:41.586 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 15:20:41.586 - INFO - Staring fit.
+2024-08-26 15:20:41.586 - INFO - Staring fit.
+2024-08-26 15:20:41.664 - INFO - Fitting finished
+2024-08-26 15:20:41.664 - INFO - Fitting finished
+2024-08-26 15:20:41.664 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 15:20:41.664 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 15:20:41.671 - INFO - Fitting finished.
+2024-08-26 15:20:41.671 - INFO - Fitting finished.
+2024-08-26 15:20:41.671 - DEBUG - Fitted parameters: t_0 = 2457492.18+-1.33, u_0 = 0.153+-0.048, t_E = 138.65+-21.33
+2024-08-26 15:20:41.671 - DEBUG - Fitted parameters: t_0 = 2457492.18+-1.33, u_0 = 0.153+-0.048, t_E = 138.65+-21.33
+2024-08-26 15:20:41.672 - INFO - Processing complete.
+
+2024-08-26 15:20:41.672 - INFO - Processing complete.
+
+2024-08-26 15:20:41.672 - INFO - Processing complete.
+
+2024-08-26 15:20:41.672 - INFO - Processing complete.
+
+2024-08-26 15:20:41.673 - INFO - Processing started. Opened log.
+2024-08-26 15:20:41.673 - INFO - Processing started. Opened log.
+2024-08-26 15:20:41.673 - INFO - Fitting event.
+2024-08-26 15:20:41.673 - INFO - Fitting event.
+2024-08-26 15:20:41.700 - DEBUG - Survey to align data to: Gaia
+2024-08-26 15:20:41.700 - DEBUG - Survey to align data to: Gaia
+2024-08-26 15:20:41.700 - INFO - Fitting with microlensing parallax.
+2024-08-26 15:20:41.700 - INFO - Fitting with microlensing parallax.
+2024-08-26 15:20:54.037 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 15:20:54.037 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 15:20:54.038 - INFO - Staring fit.
+2024-08-26 15:20:54.038 - INFO - Staring fit.
+2024-08-26 15:20:54.176 - INFO - Fitting finished
+2024-08-26 15:20:54.176 - INFO - Fitting finished
+2024-08-26 15:20:54.176 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 15:20:54.176 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 15:20:54.184 - INFO - Fitting finished.
+2024-08-26 15:20:54.184 - INFO - Fitting finished.
+2024-08-26 15:20:54.184 - DEBUG - Fitted parameters: t_0 = 2457487.77+-1.15, u_0 = 0.119+-0.015, t_E = 176.20+-16.96, piEN = 0.582+-0.128,                   piEE = 0.305+-0.090
+2024-08-26 15:20:54.184 - DEBUG - Fitted parameters: t_0 = 2457487.77+-1.15, u_0 = 0.119+-0.015, t_E = 176.20+-16.96, piEN = 0.582+-0.128,                   piEE = 0.305+-0.090
+2024-08-26 15:20:54.184 - INFO - Processing complete.
+
+2024-08-26 15:20:54.184 - INFO - Processing complete.
+
+2024-08-26 15:20:54.185 - INFO - Processing complete.
+
+2024-08-26 15:20:54.185 - INFO - Processing complete.
+
+2024-08-26 15:20:54.185 - INFO - Processing complete.
+
+2024-08-26 15:20:54.185 - INFO - Processing complete.
+
+2024-08-26 15:28:19.814 - INFO - Processing started. Opened log.
+2024-08-26 15:28:19.815 - INFO - Creating fitPyLIMA instance.
+2024-08-26 15:28:19.815 - INFO - Setting up event.
+2024-08-26 15:28:19.874 - DEBUG - Survey to align data to: Gaia
+2024-08-26 15:28:19.875 - INFO - Event set up.
+2024-08-26 15:28:19.875 - INFO - Processing complete.
+
+2024-08-26 15:28:19.875 - INFO - Processing started. Opened log.
+2024-08-26 15:28:19.875 - INFO - Processing started. Opened log.
+2024-08-26 15:28:19.875 - INFO - Fitting event.
+2024-08-26 15:28:19.875 - INFO - Fitting event.
+2024-08-26 15:28:19.894 - DEBUG - Survey to align data to: Gaia
+2024-08-26 15:28:19.894 - DEBUG - Survey to align data to: Gaia
+2024-08-26 15:28:19.894 - INFO - Fitting without microlensing parallax.
+2024-08-26 15:28:19.894 - INFO - Fitting without microlensing parallax.
+2024-08-26 15:28:19.904 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 15:28:19.904 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 15:28:19.904 - INFO - Staring fit.
+2024-08-26 15:28:19.904 - INFO - Staring fit.
+2024-08-26 15:28:19.960 - INFO - Fitting finished
+2024-08-26 15:28:19.960 - INFO - Fitting finished
+2024-08-26 15:28:19.960 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 15:28:19.960 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 15:28:19.967 - INFO - Fitting finished.
+2024-08-26 15:28:19.967 - INFO - Fitting finished.
+2024-08-26 15:28:19.967 - DEBUG - Fitted parameters: t_0 = 2457492.18+-1.33, u_0 = 0.153+-0.048, t_E = 138.65+-21.33
+2024-08-26 15:28:19.967 - DEBUG - Fitted parameters: t_0 = 2457492.18+-1.33, u_0 = 0.153+-0.048, t_E = 138.65+-21.33
+2024-08-26 15:28:19.967 - INFO - Processing complete.
+
+2024-08-26 15:28:19.967 - INFO - Processing complete.
+
+2024-08-26 15:28:19.967 - INFO - Processing complete.
+
+2024-08-26 15:28:19.967 - INFO - Processing complete.
+
+2024-08-26 15:28:19.968 - INFO - Processing started. Opened log.
+2024-08-26 15:28:19.968 - INFO - Processing started. Opened log.
+2024-08-26 15:28:19.968 - INFO - Fitting event.
+2024-08-26 15:28:19.968 - INFO - Fitting event.
+2024-08-26 15:28:19.991 - DEBUG - Survey to align data to: Gaia
+2024-08-26 15:28:19.991 - DEBUG - Survey to align data to: Gaia
+2024-08-26 15:28:19.991 - INFO - Fitting with microlensing parallax.
+2024-08-26 15:28:19.991 - INFO - Fitting with microlensing parallax.
+2024-08-26 15:28:26.135 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 15:28:26.135 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 15:28:26.135 - INFO - Staring fit.
+2024-08-26 15:28:26.135 - INFO - Staring fit.
+2024-08-26 15:28:26.260 - INFO - Fitting finished
+2024-08-26 15:28:26.260 - INFO - Fitting finished
+2024-08-26 15:28:26.260 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 15:28:26.260 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 15:28:26.268 - INFO - Fitting finished.
+2024-08-26 15:28:26.268 - INFO - Fitting finished.
+2024-08-26 15:28:26.268 - DEBUG - Fitted parameters: t_0 = 2457487.77+-1.15, u_0 = 0.119+-0.015, t_E = 176.20+-16.96, piEN = 0.582+-0.128, piEE = 0.305+-0.090
+2024-08-26 15:28:26.268 - DEBUG - Fitted parameters: t_0 = 2457487.77+-1.15, u_0 = 0.119+-0.015, t_E = 176.20+-16.96, piEN = 0.582+-0.128, piEE = 0.305+-0.090
+2024-08-26 15:28:44.369 - INFO - Processing started. Opened log.
+2024-08-26 15:28:44.369 - INFO - Creating fitPyLIMA instance.
+2024-08-26 15:28:44.369 - INFO - Setting up event.
+2024-08-26 15:28:44.430 - DEBUG - Survey to align data to: Gaia
+2024-08-26 15:28:44.430 - INFO - Event set up.
+2024-08-26 15:28:44.430 - INFO - Processing complete.
+
+2024-08-26 15:28:44.430 - INFO - Processing started. Opened log.
+2024-08-26 15:28:44.430 - INFO - Processing started. Opened log.
+2024-08-26 15:28:44.430 - INFO - Fitting event.
+2024-08-26 15:28:44.430 - INFO - Fitting event.
+2024-08-26 15:28:44.449 - DEBUG - Survey to align data to: Gaia
+2024-08-26 15:28:44.449 - DEBUG - Survey to align data to: Gaia
+2024-08-26 15:28:44.449 - INFO - Fitting without microlensing parallax.
+2024-08-26 15:28:44.449 - INFO - Fitting without microlensing parallax.
+2024-08-26 15:28:44.460 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 15:28:44.460 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 15:28:44.460 - INFO - Staring fit.
+2024-08-26 15:28:44.460 - INFO - Staring fit.
+2024-08-26 15:28:44.514 - INFO - Fitting finished
+2024-08-26 15:28:44.514 - INFO - Fitting finished
+2024-08-26 15:28:44.515 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 15:28:44.515 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 15:28:44.521 - INFO - Fitting finished.
+2024-08-26 15:28:44.521 - INFO - Fitting finished.
+2024-08-26 15:28:44.521 - DEBUG - Fitted parameters: t_0 = 2457492.18+-1.33, u_0 = 0.153+-0.048, t_E = 138.65+-21.33
+2024-08-26 15:28:44.521 - DEBUG - Fitted parameters: t_0 = 2457492.18+-1.33, u_0 = 0.153+-0.048, t_E = 138.65+-21.33
+2024-08-26 15:28:44.521 - INFO - Processing complete.
+
+2024-08-26 15:28:44.521 - INFO - Processing complete.
+
+2024-08-26 15:28:44.521 - INFO - Processing complete.
+
+2024-08-26 15:28:44.521 - INFO - Processing complete.
+
+2024-08-26 15:28:44.522 - INFO - Processing started. Opened log.
+2024-08-26 15:28:44.522 - INFO - Processing started. Opened log.
+2024-08-26 15:28:44.522 - INFO - Fitting event.
+2024-08-26 15:28:44.522 - INFO - Fitting event.
+2024-08-26 15:28:44.542 - DEBUG - Survey to align data to: Gaia
+2024-08-26 15:28:44.542 - DEBUG - Survey to align data to: Gaia
+2024-08-26 15:28:44.543 - INFO - Fitting with microlensing parallax.
+2024-08-26 15:28:44.543 - INFO - Fitting with microlensing parallax.
+2024-08-26 15:28:50.746 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 15:28:50.746 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 15:28:50.747 - INFO - Staring fit.
+2024-08-26 15:28:50.747 - INFO - Staring fit.
+2024-08-26 15:28:50.894 - INFO - Fitting finished
+2024-08-26 15:28:50.894 - INFO - Fitting finished
+2024-08-26 15:28:50.894 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 15:28:50.894 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 15:28:50.903 - INFO - Fitting finished.
+2024-08-26 15:28:50.903 - INFO - Fitting finished.
+2024-08-26 15:28:50.903 - DEBUG - Fitted parameters: t_0 = 2457487.77+-1.15, u_0 = 0.119+-0.015, t_E = 176.20+-16.96, piEN = 0.582+-0.128, piEE = 0.305+-0.090
+2024-08-26 15:28:50.903 - DEBUG - Fitted parameters: t_0 = 2457487.77+-1.15, u_0 = 0.119+-0.015, t_E = 176.20+-16.96, piEN = 0.582+-0.128, piEE = 0.305+-0.090
+2024-08-26 15:28:50.903 - INFO - Processing complete.
+
+2024-08-26 15:28:50.903 - INFO - Processing complete.
+
+2024-08-26 15:28:50.903 - INFO - Processing complete.
+
+2024-08-26 15:28:50.903 - INFO - Processing complete.
+
+2024-08-26 15:28:50.903 - INFO - Processing complete.
+
+2024-08-26 15:28:50.903 - INFO - Processing complete.
+

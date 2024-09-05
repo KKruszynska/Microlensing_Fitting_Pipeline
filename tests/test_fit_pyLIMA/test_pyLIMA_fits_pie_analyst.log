@@ -1,0 +1,42 @@
+2024-08-26 15:20:41.673 - INFO - Processing started. Opened log.
+2024-08-26 15:20:41.673 - INFO - Fitting event.
+2024-08-26 15:20:41.700 - DEBUG - Survey to align data to: Gaia
+2024-08-26 15:20:41.700 - INFO - Fitting with microlensing parallax.
+2024-08-26 15:20:54.037 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 15:20:54.038 - INFO - Staring fit.
+2024-08-26 15:20:54.176 - INFO - Fitting finished
+2024-08-26 15:20:54.176 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 15:20:54.184 - INFO - Fitting finished.
+2024-08-26 15:20:54.184 - DEBUG - Fitted parameters: t_0 = 2457487.77+-1.15, u_0 = 0.119+-0.015, t_E = 176.20+-16.96, piEN = 0.582+-0.128,                   piEE = 0.305+-0.090
+2024-08-26 15:20:54.184 - INFO - Processing complete.
+
+2024-08-26 15:20:54.185 - INFO - Processing complete.
+
+2024-08-26 15:20:54.185 - INFO - Processing complete.
+
+2024-08-26 15:28:19.968 - INFO - Processing started. Opened log.
+2024-08-26 15:28:19.968 - INFO - Fitting event.
+2024-08-26 15:28:19.991 - DEBUG - Survey to align data to: Gaia
+2024-08-26 15:28:19.991 - INFO - Fitting with microlensing parallax.
+2024-08-26 15:28:26.135 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 15:28:26.135 - INFO - Staring fit.
+2024-08-26 15:28:26.260 - INFO - Fitting finished
+2024-08-26 15:28:26.260 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 15:28:26.268 - INFO - Fitting finished.
+2024-08-26 15:28:26.268 - DEBUG - Fitted parameters: t_0 = 2457487.77+-1.15, u_0 = 0.119+-0.015, t_E = 176.20+-16.96, piEN = 0.582+-0.128, piEE = 0.305+-0.090
+2024-08-26 15:28:44.522 - INFO - Processing started. Opened log.
+2024-08-26 15:28:44.522 - INFO - Fitting event.
+2024-08-26 15:28:44.542 - DEBUG - Survey to align data to: Gaia
+2024-08-26 15:28:44.543 - INFO - Fitting with microlensing parallax.
+2024-08-26 15:28:50.746 - INFO - Using boundaries default for MFPipeline.
+2024-08-26 15:28:50.747 - INFO - Staring fit.
+2024-08-26 15:28:50.894 - INFO - Fitting finished
+2024-08-26 15:28:50.894 - DEBUG - Convert model parameters to dictionary.
+2024-08-26 15:28:50.903 - INFO - Fitting finished.
+2024-08-26 15:28:50.903 - DEBUG - Fitted parameters: t_0 = 2457487.77+-1.15, u_0 = 0.119+-0.015, t_E = 176.20+-16.96, piEN = 0.582+-0.128, piEE = 0.305+-0.090
+2024-08-26 15:28:50.903 - INFO - Processing complete.
+
+2024-08-26 15:28:50.903 - INFO - Processing complete.
+
+2024-08-26 15:28:50.903 - INFO - Processing complete.
+

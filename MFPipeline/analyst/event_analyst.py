@@ -162,10 +162,8 @@ class EventAnalyst(Analyst):
     def run_fit_analyst(self):
         '''
         Launch Fit Analyst to find all fitting microlensing events.
-        Placeholder.
         '''
 
-        fit_status = False
         self.log.info("Event Analyst: Starting Fit Analyst.")
         fit_analyst = FitAnalyst(self.config["event_name"], self.analyst_path, self.light_curves,
                                  self.log,
@@ -173,12 +171,15 @@ class EventAnalyst(Analyst):
                                  )
         self.log.debug("Event Analyst: Fit Analyst created.")
         self.log.debug("Event Analyst: Starting fitting.")
-        fit_status = fit_analyst.perform_fit()
+        fit_results = fit_analyst.perform_fit()
         self.log.debug("Event Analyst: Fitting finished.")
-        if (fit_status):
-            self.log.info("Event Analyst: Fitting finished succesfully.")
-        else:
-            self.log.info("Event Analyst: Fit Analyst finished with errors.")
+
+        self.log.debug("Event Analyst: Saving results.")
+        # Save results to a file
+        file_name = self.analyst_path+"/fit_results.json"
+        with open(file_name, "w", encoding="utf-8") as file:
+            json.dump(fit_results, file, ensure_ascii=False, indent=4)
+        self.log.debug("Event Analyst: Results saved to %s."%(file_name))
 
     def run_cmd_analyst(self):
         '''
