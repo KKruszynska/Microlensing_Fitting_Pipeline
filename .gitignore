@@ -21,7 +21,7 @@ tests/test_cmd/outputGDR3-ULENS-025_analyst.log
 tests/test_controller/GaiaDR3-ULENS-018/GaiaDR3-ULENS-018_analyst.log
 tests/test_controller/GaiaDR3-ULENS-025/GaiaDR3-ULENS-025_CMD_Gaia_DR3_Gaia_BP.html
 tests/test_controller/GaiaDR3-ULENS-025/GaiaDR3-ULENS-025_CMD_Gaia_DR3_Gaia_G.html
-tests/test_controller/GaiaDR3-ULENS-025/GaiaDR3-ULENS-025_CMD_Gaia_DR3_Gaia_RP.html
+tests/test_controller/GaiaMFPipeline/fitting_support/__pycache__/fitter.cpython-311.pycDR3-ULENS-025/GaiaDR3-ULENS-025_CMD_Gaia_DR3_Gaia_RP.html
 tests/test_controller/GaiaDR3-ULENS-025/GaiaDR3-ULENS-025_analyst.log
 MFPipeline/analyst/__pycache__/
 MFPipeline/controller/__pycache__/
@@ -30,4 +30,7 @@ tests/__pycache__/test_cmd_analyst.cpython-311-pytest-8.2.2.pyc
 tests/test_controller/controller.log
 tests/test_logs/test_error_analyst.log
 tests/test_logs/test_debug_analyst.log
-
+MFPipeline/fitting_support/__pycache__/fit_pyLIMA.cpython-311.pyc
+tests/test_logs/test_debug_analyst.log
+.idea/Microlensing_Fitting_Pipeline.iml
+tests/__pycache__/test_cmd_analyst.cpython-311-pytest-8.2.2.pyc
