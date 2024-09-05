@@ -119,7 +119,7 @@ class fitPyLIMA(Fitter):
 
         if parallax:
             self.log.info("Fitting with microlensing parallax.")
-            pspl = PSPL_model.PSPLmodel(event, parallax=["Full", starting_params["t_0"]],
+            pspl = PSPL_model.PSPLmodel(event, parallax=["Full", np.floor(starting_params["t_0"])],
                                         blend_flux_parameter=blend_param)
         else:
             self.log.info("Fitting without microlensing parallax.")
@@ -180,6 +180,8 @@ class fitPyLIMA(Fitter):
         param_keys = list(model_fit.fit_parameters.keys())
 
         model_params = {}
+
+        model_params["t0_par"] = model_fit.model.parallax_model[1]
 
         for i, key in enumerate(param_keys):
             if key in ['t0' 'tE']:
