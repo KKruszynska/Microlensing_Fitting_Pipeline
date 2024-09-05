@@ -66,7 +66,7 @@ class FitAnalyst(Analyst):
         :return: status of the fitting procedures.
         '''
 
-        self.log.debug("Fit Analyst: Time elapsed for setting up the analyst: {.2f} s".format(
+        self.log.debug("Fit Analyst: Time elapsed for setting up the analyst: {:.2f} s".format(
             time.time() - self.start_time))
         self.log.info("Fit Analyst: Starting ongoing check fit.")
         self.log.info("Find PSPL starting parameters.")
@@ -77,13 +77,12 @@ class FitAnalyst(Analyst):
                            "u_0": 0.1,
                            "t_E": 40.,}
 
-        self.log.info("Perform PSPL fit.")
+        self.log.info("Perform PSPL fit without blend and parallax.")
         results = self.fit_PSPL(starting_params,
                                 False,
                                 False,
                                 return_norm_lc=True,
                                 )
-
         fit_params_PSPL_nopar = results[0]
         aligned_data, residuals = results[1], results[2]
         self.log.info("Fit Analyst:  Finished fitting.")
@@ -93,7 +92,11 @@ class FitAnalyst(Analyst):
 
         self.log.info("Identify ongoing event.")
         baseline_mag = fit_params_PSPL_nopar["baseline_magnitude"]
+        self.start_time = time.time()
         ongoing = self.check_ongoing(aligned_data, residuals, baseline_mag)
+        self.log.debug("Fit Analyst: Time elapsed for ongoing check: {:.2f} s".format(
+            time.time() - self.start_time
+        ))
 
         return ongoing
 
@@ -141,11 +144,16 @@ class FitAnalyst(Analyst):
         :return: list with fitted parameters and if requested, aligned data
         '''
 
+        self.start_time = time.time()
         results = {}
         if self.config["fitting_package"] == "pyLIMA":
             fit_pspl = fit_pyLIMA.fitPyLIMA(self.log)
             results = fit_pspl.fit_PSPL(self.light_curves, starting_params, parallax, blend,
                                         return_norm_lc=return_norm_lc, use_boundries=use_boundries)
+
+        self.log.debug("Fit Analyst: Time elapsed for fitting: {:.2f} s".format(
+            time.time() - self.start_time
+        ))
 
         return results
 
