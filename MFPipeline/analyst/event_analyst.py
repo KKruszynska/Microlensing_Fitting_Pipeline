@@ -119,7 +119,7 @@ class EventAnalyst(Analyst):
                 self.log.info("Event Analyst: CMD Analyst configuration received.")
             else:
                 self.log.info("Event Analyst: No CMD Analyst config, it will not be launched.")
-            
+
         except Exception as err:
             self.log.error(f"Event Analyst: %s, %s" % (err, type(err)))
 
@@ -155,11 +155,14 @@ class EventAnalyst(Analyst):
 
         self.log.info("Event Analyst: Processing started.")
 
-        lc_status = self.run_lc_analyst()
+        if "lc_analyst" in self.config:
+             self.run_lc_analyst()
 
-        fit_status = self.run_fit_analyst()
+        if "fit_analyst" in self.config:
+             self.run_fit_analyst()
 
-        cmd_plot_status = self.run_cmd_analyst()
+        if "cmd_analyst" in self.config:
+             self.run_cmd_analyst()
 
         self.log.info("Event Analyst: Processing finished.")
         self.log.info("-------------------------------------------")
