@@ -2,6 +2,7 @@ import numpy as np
 import yaml
 import json
 import sys
+import time
 
 from MFPipeline.analyst.analyst import Analyst
 
@@ -67,9 +68,23 @@ class EventAnalyst(Analyst):
             with open(config_path, 'r') as file:
                 event_config = yaml.safe_load(file)
 
-            self.config["lc_analyst"] = event_config.get("lc_analyst")
-            self.config["fit_analyst"] = event_config.get("fit_analyst")
-            self.config["cmd_analyst"] = event_config.get("cmd_analyst")
+            if "lc_analyst" in event_config:
+                self.config["lc_analyst"] = event_config.get("lc_analyst")
+                self.log.info("Event Analyst: Light Curve Analyst configuration received.")
+            else:
+                self.log.info("Event Analyst: No Light Curve Analyst config, it will not be launched.")
+
+            if "fit_analyst" in event_config:
+                self.config["fit_analyst"] = event_config.get("fit_analyst")
+                self.log.info("Event Analyst: Fit Analyst configuration received.")
+            else:
+                self.log.info("Event Analyst: No Fit Analyst config, it will not be launched.")
+
+            if "cmd_analyst" in event_config:
+                self.config["cmd_analyst"] = event_config.get("cmd_analyst")
+                self.log.info("Event Analyst: CMD Analyst configuration received.")
+            else:
+                self.log.info("Event Analyst: No CMD Analyst config, it will not be launched.")
 
             self.light_curves = self.parse_light_curves(event_config.get("light_curves"))
 
@@ -86,11 +101,25 @@ class EventAnalyst(Analyst):
 
         try:
             self.light_curves = self.parse_light_curves(conifg_dict.get("light_curves"))
-            self.config["lc_analyst"] = conifg_dict.get("lc_analyst")
-            self.config["fit_analyst"] = conifg_dict.get("fit_analyst")
-            self.config["cmd_analyst"] = conifg_dict.get("cmd_analyst")
 
+            if "lc_analyst" in conifg_dict:
+                self.config["lc_analyst"] = conifg_dict.get("lc_analyst")
+                self.log.info("Event Analyst: Light Curve Analyst configuration received.")
+            else:
+                self.log.info("Event Analyst: No Light Curve Analyst config, it will not be launched.")
 
+            if "fit_analyst" in conifg_dict:
+                self.config["fit_analyst"] = conifg_dict.get("fit_analyst")
+                self.log.info("Event Analyst: Fit Analyst configuration received.")
+            else:
+                self.log.info("Event Analyst: No Fit Analyst config, it will not be launched.")
+
+            if "cmd_analyst" in conifg_dict:
+                self.config["cmd_analyst"] = conifg_dict.get("cmd_analyst")
+                self.log.info("Event Analyst: CMD Analyst configuration received.")
+            else:
+                self.log.info("Event Analyst: No CMD Analyst config, it will not be launched.")
+            
         except Exception as err:
             self.log.error(f"Event Analyst: %s, %s" % (err, type(err)))
 
