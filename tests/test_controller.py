@@ -1,8 +1,10 @@
 import glob, os
 import numpy as np
 import pandas as pd
-
 import json
+
+import pytest
+
 
 class TestControllerPaths:
     '''
@@ -55,7 +57,7 @@ class TestControllerPaths:
 #             dictionary["lc_analyst"] = {}
 #             dictionary["lc_analyst"]["n_max"] = "%d"%event_info["lc_nmax"].values[idx][0]
 #             dictionary["fit_analyst"] = {}
-#             dictionary["fit_analyst"]["n_max"] = "%d"%event_info["fit_nmax"].values[idx][0]
+#             dictionary["fit_analyst"]["fitting_package"] = "pyLIMA"
 #
 #             cats = event_info["catalogues"].values[idx][0].split(" ")
 #             cat_list = []
@@ -108,7 +110,7 @@ class TestControllerPaths:
 #             "log_location":
 #                 "/home/katarzyna/Documents/Microlensing_Fitting_Pipeline/Microlensing_Fitting_Pipeline/tests/test_controller/",
 #             "log_level": "debug",
-#             "log_stream": True,
+#             "log_stream": False,
 #             }
 #
 #         controller = Controller(event_list, config_dict=config, analyst_dicts=analyst_jsons)

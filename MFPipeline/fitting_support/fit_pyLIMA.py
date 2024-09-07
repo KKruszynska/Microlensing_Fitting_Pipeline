@@ -189,7 +189,33 @@ class fitPyLIMA(Fitter):
             else:
                 ndp = 5
             model_params[key] = np.around(model_fit.fit_results["best_model"][i], ndp)
-            model_params[key + '_error'] = np.around(np.sqrt(model_fit.fit_results["covariance_matrix"][i, i]), ndp)
+            model_params[key + "_error"] = np.around(np.sqrt(model_fit.fit_results["covariance_matrix"][i, i]), ndp)
+
+            # Save fluxes transformed to magnitudes
+            if "fsource" in key:
+                model_params[key + "_mag"] = np.around(toolbox.brightness_transformation.flux_to_magnitude(
+                    model_fit.fit_results["best_model"][i]), 3)
+                model_params[key + "_mag_error"] = np.around(
+                    toolbox.brightness_transformation.error_flux_to_error_magnitude(
+                        model_fit.fit_results["best_model"][i],
+                        np.sqrt(model_fit.fit_results["covariance_matrix"][i, i])),
+                    3)
+            if "fblend" in key:
+                model_params[key + "_mag"] = np.around(toolbox.brightness_transformation.flux_to_magnitude(
+                    model_fit.fit_results["best_model"][i]), 3)
+                model_params[key + "_mag_error"] = np.around(
+                    toolbox.brightness_transformation.error_flux_to_error_magnitude(
+                        model_fit.fit_results["best_model"][i],
+                        np.sqrt(model_fit.fit_results["covariance_matrix"][i, i])),
+                    3)
+            if "ftotal" in key:
+                model_params[key + "_mag"] = np.around(toolbox.brightness_transformation.flux_to_magnitude(
+                    model_fit.fit_results["best_model"][i]), 3)
+                model_params[key + "_mag_error"] = np.around(
+                    toolbox.brightness_transformation.error_flux_to_error_magnitude(
+                        model_fit.fit_results["best_model"][i],
+                        np.sqrt(model_fit.fit_results["covariance_matrix"][i, i])),
+                    3)
 
         # model_params['chi2'] = np.around(model_fit.fit_results["best_model"][-1], 3)
         # Reporting actual chi2 instead value of the loss function
@@ -214,26 +240,21 @@ class fitPyLIMA(Fitter):
         for pylima_key, mop_key in key_map.items():
             try:
                 idx = param_keys.index(pylima_key)
-                model_params[mop_key] = np.around(toolbox.brightness_transformation.flux_to_magnitude(model_fit.fit_results["best_model"][idx]), 3)
+                model_params[mop_key] = np.around(toolbox.brightness_transformation.flux_to_magnitude(
+                    model_fit.fit_results["best_model"][idx]), 3)
                 flux_index.append(idx)
             except ValueError:
                 model_params[mop_key] = np.nan
 
         # Retrieve the flux uncertainties and convert to magnitudes
         model_params['source_mag_error'] = np.around(
-            toolbox.brightness_transformation.error_flux_to_error_magnitude(model_params['fsource_'+tel_0],
-                                  model_params['fsource_'+tel_0+'_error']
-                                  ),
-            3
-        )
+            toolbox.brightness_transformation.error_flux_to_error_magnitude(
+                model_params['fsource_'+tel_0], model_params['fsource_'+tel_0+'_error']),3)
+
         if 'fblend_'+tel_0 in model_params.keys():
             model_params['blend_mag_error'] = np.around(
-                toolbox.brightness_transformation.error_flux_to_error_magnitude(model_params['fblend_'+tel_0],
-                                      model_params['fblend_'+tel_0+
-                                                   '_error']
-                                      ),
-                3
-            )
+                toolbox.brightness_transformation.error_flux_to_error_magnitude(
+                    model_params['fblend_'+tel_0], model_params['fblend_'+tel_0+'_error']),3)
         else:
             model_params['blend_mag_error'] = np.nan
 

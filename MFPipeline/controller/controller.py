@@ -16,7 +16,7 @@ class Controller:
     :param event_list: list, a list with names of events that need to be analyzed by the pipeline
     :param config_path: string, optional, a path to a YAML file that has the configuration parameters for the controller
     :param config_dict: dictionary, optional, a dictionary containing configuration of the controller
-    :param analyst_dicts: dictionary, optional, dictionary containing jsons with infromation for analysts
+    :param analyst_dicts: dictionary, optional, dictionary containing jsons with information for analysts
     :param stream: optional, boolean, should the log be accessible through Kubernetes?
     '''
     def __init__(self,
@@ -67,7 +67,6 @@ class Controller:
             if "log_stream" in controller_config:
                 config["log_stream"] = controller_config.get("log_stream")
 
-
         except Exception as err:
             self.log.exception(f"Controller: %s, %s" % (err, type(err)))
             config = None
@@ -97,6 +96,7 @@ class Controller:
                 self.log.debug(f"Controller: Analyst dicts specified.")
                 command.append("--config_dict")
                 command.append(str(self.analyst_dicts[event]))
+                print(command)
             else:
                 self.log.debug(
                     f"Controller: Analyst dicts not specified, will look for information in their config files."
