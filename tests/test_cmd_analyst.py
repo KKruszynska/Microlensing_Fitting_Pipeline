@@ -95,7 +95,7 @@ class testCmdAnalyst():
         cats.append(dict)
         config["cmd_analyst"] = {}
         config["cmd_analyst"]["catalogues"] = cats
-        log = logs.start_analyst_log(path_outputs, 'debug', event_name=config["event_name"], stream=True)
+        log = logs.start_log(path_outputs, 'debug', event_name=config["event_name"], stream=True)
         analyst = CmdAnalyst(config["event_name"], path_outputs, catalogue, light_curve_data, log, config_dict=config)
 
         source_data, source_labels = analyst.transform_source_data()
@@ -138,7 +138,7 @@ class testCmdAnalyst():
         cats.append(dict)
         config["cmd_analyst"] = {}
         config["cmd_analyst"]["catalogues"] = cats
-        log = logs.start_analyst_log(path_outputs, 'debug', event_name=config["event_name"], stream=True)
+        log = logs.start_log(path_outputs, 'debug', event_name=config["event_name"], stream=True)
         analyst = CmdAnalyst(config["event_name"], path_outputs, catalogue, light_curve_data, log, config_dict=config)
 
         cmd_data, cmd_labels = analyst.load_catalogue_data()
@@ -180,7 +180,7 @@ class testCmdAnalyst():
         cats.append(dict)
         config["cmd_analyst"] = {}
         config["cmd_analyst"]["catalogues"] = cats
-        log = logs.start_analyst_log(path_outputs, 'debug', event_name=config["event_name"])
+        log = logs.start_log(path_outputs, 'debug', event_name=config["event_name"])
         analyst = CmdAnalyst(config["event_name"], path_outputs, catalogue, light_curve_data, log, config_dict=config)
 
         source_data, source_labels = analyst.transform_source_data()

@@ -29,6 +29,7 @@ scenario_file_cat = {
             "n_max": 10,
              },
         "fit_analyst": {
+            "fitting_package": "pyLIMA",
             "n_max": 10,
         },
         "cmd_analyst":
