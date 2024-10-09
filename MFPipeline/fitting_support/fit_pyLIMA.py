@@ -401,3 +401,55 @@ class fitPyLIMA(Fitter):
                 residuals.append(res_magnitude)
 
         return aligned_data, residuals
+
+
+def return_baseline_mag(mag_source, err_mag_source, mag_blend, err_mag_blend):
+    """
+    This function returns baseline magnitude based on source and blend magnitude.
+
+    :param mag_source: source brightness in magnitudes
+    :param err_mag_source: source uncertainty in magnitudes
+    :param mag_blend: blend brightness in magnitudes
+    :param err_mag_blend: source uncertainty in magnitudes
+    :param fit_package: package used for fitting
+    :return: baseline brightness and its uncertainty in magnitudes
+    """
+
+    flux_source = toolbox.brightness_transformation.magnitude_to_flux(mag_source)
+    err_fs = toolbox.brightness_transformation.error_magnitude_to_error_flux(err_mag_source, flux_source)
+    flux_blend = toolbox.brightness_transformation.magnitude_to_flux(mag_blend)
+    err_fb = toolbox.brightness_transformation.error_magnitude_to_error_flux(err_mag_blend, flux_blend)
+
+    base_flux = flux_source + flux_blend
+    err_f_base = np.sqrt(err_fs**2 + err_fb**2)
+
+    base_mag = toolbox.brightness_transformation.flux_to_magnitude(base_flux)
+    err_base_mag = toolbox.brightness_transformation.error_flux_to_error_magnitude(err_f_base, base_flux)
+
+    return base_mag, err_base_mag
+
+
+def return_blend_mag(mag_source, err_mag_source, mag_base, err_mag_base):
+    """
+    This function returns blend magnitude based on source and baseline magnitude.
+
+    :param mag_source: source brightness in magnitudes
+    :param err_mag_source: source uncertainty in magnitudes
+    :param mag_base: baseline brightness in magnitudes
+    :param err_mag_base: baseline uncertainty in magnitudes
+    :return: blend brightness and its uncertainty in magnitudes
+    """
+
+    flux_source = toolbox.brightness_transformation.magnitude_to_flux(mag_source)
+    err_fs = toolbox.brightness_transformation.error_magnitude_to_error_flux(err_mag_source, flux_source)
+    flux_baseline = toolbox.brightness_transformation.magnitude_to_flux(mag_base)
+    err_fbase = toolbox.brightness_transformation.error_magnitude_to_error_flux(err_mag_base, flux_baseline)
+
+    blend_flux = flux_baseline - flux_source
+    err_f_blend = np.sqrt(err_fs**2 + err_fbase**2)
+
+    blend_mag = toolbox.brightness_transformation.flux_to_magnitude(blend_flux)
+    err_blend_mag = toolbox.brightness_transformation.error_flux_to_error_magnitude(err_f_blend, blend_flux)
+
+    return blend_mag, err_blend_mag
+

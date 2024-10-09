@@ -103,7 +103,7 @@ class CmdAnalyst(Analyst):
             self.log.debug("CMD Analyst: Collected all labels.")
 
             labels = l[:len(d[0][:]) - 1]
-            cols = ['object']
+            cols = ["object"]
             for l in labels:
                 cols.append(l)
             data = pd.DataFrame(d, columns=cols)
@@ -263,16 +263,27 @@ class CmdAnalyst(Analyst):
                                          ), )
                 self.log.debug("CMD Analyst: Catalogue data plotted.")
 
-                for j in range(len(source_data['object'].values[:])):
+                for j in range(len(source_data["object"].values[:])):
+                    if source_data[cmd_labels[1]].iloc[j][0] is None:
+                        continue
+
                     fig.add_trace(
-                        go.Scatter(x=[source_data[cmd_labels[1]].iloc[j] - source_data[cmd_labels[2]].iloc[j]],
-                                   y=[source_data[cmd_labels[i]].iloc[j]],
+                        go.Scatter(x=[source_data[cmd_labels[1]].iloc[j][0] - source_data[cmd_labels[2]].iloc[j][0]],
+                                   y=[source_data[cmd_labels[i]].iloc[j][0]],
+                                   error_x=dict(
+                                       type="data", # value of error bar given in data coordinates
+                                       array=[np.sqrt(source_data[cmd_labels[1]].iloc[j][1] ** 2 + source_data[cmd_labels[2]].iloc[j][1]** 2)],
+                                       visible=True),
+                                   error_y=dict(
+                                       type="data",  # value of error bar given in data coordinates
+                                       array=[[source_data[cmd_labels[i]].iloc[j][1]]],
+                                       visible=True),
                                    mode="markers",
                                    marker=dict(
-                                       color=colours[source_data['object'].iloc[j]],
+                                       color=colours[source_data["object"].iloc[j]],
                                        size=10,
                                    ),
-                                   name=source_data['object'].iloc[j],
+                                   name=source_data["object"].iloc[j],
                                    showlegend=True
                                    ), )
                     self.log.debug("CMD Analyst: Plotted data for %s."%source_data['object'].iloc[j])

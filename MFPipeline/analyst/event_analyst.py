@@ -11,6 +11,7 @@ from MFPipeline.analyst.fit_analyst import FitAnalyst
 from MFPipeline.analyst.cmd_analyst import CmdAnalyst
 
 from MFPipeline import logs
+from MFPipeline.analyst import analyst_tools
 
 
 class EventAnalyst(Analyst):
@@ -220,35 +221,60 @@ class EventAnalyst(Analyst):
         for dictionary in self.config["cmd_analyst"]["catalogues"]:
             catalogue = dictionary["name"]
             for solution in self.fit_results:
-                mag_results = {}
                 results = self.fit_results[solution]
+                bands = analyst_tools.cmd_catalogues_to_bands(catalogue)
+
                 # gather photometric params
-                for i, key in enumerate(results):
-                    if catalogue in key:
-                        if "mag_error" in key:
-                            mag_results[key] = results[key]
-                        elif "mag" in key:
-                            mag_results[key] = results[key]
+                base, source, blend = {}, {}, {}
+                for b in bands:
+                    no_total, no_blend = True, True
+                    for i, key in enumerate(results):
+                        if b in key:
+                            if "total" in key:
+                                no_total = False
+                                if "mag_err" in key:
+                                    base_err = results[key]
+                                elif "mag" in key:
+                                    base_mag = results[key]
+                            elif "source" in key:
+                                if "mag_err" in key:
+                                    source_err = results[key]
+                                elif "mag" in key:
+                                    source_mag = results[key]
+                            elif "blend" in key:
+                                no_blend = False
+                                if "mag_err" in key:
+                                    blend_err = results[key]
+                                elif "mag" in key:
+                                    blend_mag = results[key]
 
-                no_total = False
-                for i, key in enumerate(mag_results):
-                    if "total" in key:
-                        
-                    elif "source" in key:
+                    source[b] = [source_mag, source_err]
 
-                    elif "blend" in key:
-
-                if no_total:
-
+                    if no_blend and no_total:
+                        base[b] = [None, None]
+                        blend[b] = [None, None]
+                    elif no_total and blend_mag is not None:
+                        blend[b] = [blend_mag, blend_err]
+                        fs, fb = source[b], blend[b]
+                        base[b] = analyst_tools.get_baseline_mag(fs[0], fs[1], fb[0], fb[1],
+                                                                 self.config["fit_analyst"]["fitting_package"])
+                    elif no_blend and base_mag is not None:
+                        base[b] = [base_mag, base_err]
+                        fs, fbase = source[b], base[b]
+                        blend[b] = analyst_tools.get_blend_mag(fs[0], fs[1], fbase[0], fbase[1],
+                                                              self.config["fit_analyst"]["fitting_package"])
+                    else:
+                        base[b] = [base_mag, base_err]
+                        blend[b] = [blend_mag, blend_err]
 
 
                 self.log.info("Event Analyst: Starting CMD analyst for %s" % catalogue)
-                light_curve_data = {'baseline': {'Gaia_G': 16.12, 'Gaia_BP': 17.78, 'Gaia_RP': 14.88},
-                                    'source': {'Gaia_G': 16.14, 'Gaia_BP': 17.79, 'Gaia_RP': 14.91},
-                                    'blend': {'Gaia_G': 20.37, 'Gaia_BP': 22.78, 'Gaia_RP': 18.69}}
+                light_curve_data = {'baseline': base,
+                                    'source': source,
+                                    'blend': blend}
                 self.log.debug("Event Analyst: Got light curve data.")
 
-                cmd_analyst = CmdAnalyst(self.config["event_name"], self.analyst_path, catalogue, light_curve_data,
+                cmd_analyst = CmdAnalyst(self.config["event_name"]+"_"+solution, self.analyst_path, catalogue, light_curve_data,
                                          self.log,
                                          config_dict=self.config
                                          )
