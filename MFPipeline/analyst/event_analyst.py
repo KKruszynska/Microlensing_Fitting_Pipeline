@@ -140,7 +140,10 @@ class EventAnalyst(Analyst):
                 light_curve = np.genfromtxt(entry["path"], unpack=True)
                 light_curves.append((self.event_name, light_curve, survey, band))
             elif "lc" in entry:
-                light_curve = entry["lc"]
+                if type(entry["lc"]) == type([1,1]):
+                    light_curve = entry["lc"]
+                else:
+                    light_curve = json.loads(entry["lc"])
                 light_curves.append((self.event_name, light_curve, survey, band))
             else:
                 self.log.error("Event Analyst: Problem! No light curve data specified")
@@ -257,12 +260,14 @@ class EventAnalyst(Analyst):
                         blend[b] = [blend_mag, blend_err]
                         fs, fb = source[b], blend[b]
                         base[b] = analyst_tools.get_baseline_mag(fs[0], fs[1], fb[0], fb[1],
-                                                                 self.config["fit_analyst"]["fitting_package"])
+                                                                 self.config["fit_analyst"]["fitting_package"],
+                                                                 self.log)
                     elif no_blend and base_mag is not None:
                         base[b] = [base_mag, base_err]
                         fs, fbase = source[b], base[b]
                         blend[b] = analyst_tools.get_blend_mag(fs[0], fs[1], fbase[0], fbase[1],
-                                                              self.config["fit_analyst"]["fitting_package"])
+                                                               self.config["fit_analyst"]["fitting_package"],
+                                                               self.log)
                     else:
                         base[b] = [base_mag, base_err]
                         blend[b] = [blend_mag, blend_err]
@@ -325,7 +330,10 @@ if __name__ == "__main__":
 
     if "--stream" in sys.argv:
         idx = sys.argv.index("--stream")
-        stream = bool(sys.argv[idx + 1])
+        if sys.argv[idx + 1] == "True":
+            stream = True,
+        else:
+            stream = False
 
     if "--config_path" in sys.argv:
         event_analyst = EventAnalyst(event, analyst_path, log_level,
@@ -338,7 +346,6 @@ if __name__ == "__main__":
         event_analyst = EventAnalyst(event, analyst_path, log_level,
                                      config_dict=config
                                      )
-        print(config)
     else:
         error = True
         error_string += "Event Analyst: Error! No config specified!"

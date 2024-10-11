@@ -403,7 +403,7 @@ class fitPyLIMA(Fitter):
         return aligned_data, residuals
 
 
-def return_baseline_mag(mag_source, err_mag_source, mag_blend, err_mag_blend):
+def return_baseline_mag(mag_source, err_mag_source, mag_blend, err_mag_blend, log):
     """
     This function returns baseline magnitude based on source and blend magnitude.
 
@@ -414,6 +414,7 @@ def return_baseline_mag(mag_source, err_mag_source, mag_blend, err_mag_blend):
     :param fit_package: package used for fitting
     :return: baseline brightness and its uncertainty in magnitudes
     """
+    base_mag, err_base_mag = None, None
 
     flux_source = toolbox.brightness_transformation.magnitude_to_flux(mag_source)
     err_fs = toolbox.brightness_transformation.error_magnitude_to_error_flux(err_mag_source, flux_source)
@@ -423,13 +424,16 @@ def return_baseline_mag(mag_source, err_mag_source, mag_blend, err_mag_blend):
     base_flux = flux_source + flux_blend
     err_f_base = np.sqrt(err_fs**2 + err_fb**2)
 
-    base_mag = toolbox.brightness_transformation.flux_to_magnitude(base_flux)
-    err_base_mag = toolbox.brightness_transformation.error_flux_to_error_magnitude(err_f_base, base_flux)
+    try:
+        base_mag = toolbox.brightness_transformation.flux_to_magnitude(base_flux)
+        err_base_mag = toolbox.brightness_transformation.error_flux_to_error_magnitude(err_f_base, base_flux)
+    except Exception as err:
+        log.error(f"CMD Analyst: %s, %s" % (err, type(err)))
 
     return base_mag, err_base_mag
 
 
-def return_blend_mag(mag_source, err_mag_source, mag_base, err_mag_base):
+def return_blend_mag(mag_source, err_mag_source, mag_base, err_mag_base, log):
     """
     This function returns blend magnitude based on source and baseline magnitude.
 
@@ -439,6 +443,7 @@ def return_blend_mag(mag_source, err_mag_source, mag_base, err_mag_base):
     :param err_mag_base: baseline uncertainty in magnitudes
     :return: blend brightness and its uncertainty in magnitudes
     """
+    blend_mag, err_blend_mag = None, None
 
     flux_source = toolbox.brightness_transformation.magnitude_to_flux(mag_source)
     err_fs = toolbox.brightness_transformation.error_magnitude_to_error_flux(err_mag_source, flux_source)
@@ -448,8 +453,11 @@ def return_blend_mag(mag_source, err_mag_source, mag_base, err_mag_base):
     blend_flux = flux_baseline - flux_source
     err_f_blend = np.sqrt(err_fs**2 + err_fbase**2)
 
-    blend_mag = toolbox.brightness_transformation.flux_to_magnitude(blend_flux)
-    err_blend_mag = toolbox.brightness_transformation.error_flux_to_error_magnitude(err_f_blend, blend_flux)
+    try:
+        blend_mag = toolbox.brightness_transformation.flux_to_magnitude(blend_flux)
+        err_blend_mag = toolbox.brightness_transformation.error_flux_to_error_magnitude(err_f_blend, blend_flux)
+    except Exception as err:
+        log.error(f"CMD Analyst: %s, %s" % (err, type(err)))
 
     return blend_mag, err_blend_mag
 
