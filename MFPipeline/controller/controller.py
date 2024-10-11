@@ -92,11 +92,14 @@ class Controller:
                        "--log_level", self.config["log_level"],
                        ]
 
+            if "log_stream" in self.config:
+                command.append("--stream")
+                command.append(str(self.config["log_stream"]))
+
             if self.analyst_dicts is not None:
                 self.log.debug(f"Controller: Analyst dicts specified.")
                 command.append("--config_dict")
                 command.append(str(self.analyst_dicts[event]))
-                print(command)
             else:
                 self.log.debug(
                     f"Controller: Analyst dicts not specified, will look for information in their config files."
@@ -104,9 +107,6 @@ class Controller:
                 command.append("--config_path")
                 command.append(self.config["events_path"] + str(event) + "/config.yaml")
 
-            if "log_stream" in self.config:
-                command.append("--stream")
-                command.append(self.config["log_stream"])
             commands.append(command)
 
         #Running analysts in batches
