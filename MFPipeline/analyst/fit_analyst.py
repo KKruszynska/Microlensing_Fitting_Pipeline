@@ -4,7 +4,7 @@ import time
 
 from MFPipeline.analyst.analyst import Analyst
 
-from MFPipeline.fitting_support import fit_pyLIMA
+from MFPipeline.fitting_support.pyLIMA import fit_pyLIMA
 
 
 class FitAnalyst(Analyst):
@@ -79,7 +79,8 @@ class FitAnalyst(Analyst):
                            }
 
         self.log.info("Perform PSPL fit without blend and parallax.")
-        results = self.fit_PSPL(starting_params,
+        results = self.fit_PSPL(self.analyst_path+"_PSPL_no_blend_no_piE",
+                                starting_params,
                                 False,
                                 False,
                                 return_norm_lc=True,
@@ -133,10 +134,11 @@ class FitAnalyst(Analyst):
 
         return time_of_peak
 
-    def fit_PSPL(self, starting_params, parallax, blend, return_norm_lc=False, use_boundaries=None):
+    def fit_PSPL(self, fit_name, starting_params, parallax, blend, return_norm_lc=False, use_boundaries=None):
         """
         Perform a Point Source Point Lens fit.
 
+        :param fit_name: str, label of the fit
         :param starting_params: list, starting parameters for the fit
         :param parallax: boolean, use parallax?
         :param blend: boolean, should blending be fitted?
@@ -150,7 +152,7 @@ class FitAnalyst(Analyst):
         results = {}
         if self.config["fitting_package"] == "pyLIMA":
             fit_pspl = fit_pyLIMA.fitPyLIMA(self.log)
-            results = fit_pspl.fit_PSPL(self.light_curves, starting_params, parallax, blend,
+            results = fit_pspl.fit_PSPL(fit_name, self.light_curves, starting_params, parallax, blend,
                                         return_norm_lc=return_norm_lc, use_boundries=use_boundaries)
 
         self.log.debug("Fit Analyst: Time elapsed for fitting: {:.2f} s".format(
@@ -204,7 +206,8 @@ class FitAnalyst(Analyst):
                            "t_E": 40., }
 
         self.log.info("Perform PSPL fit.")
-        results = self.fit_PSPL(starting_params,
+        results = self.fit_PSPL(self.analyst_path+"_PSPL_blend_no_piE",
+                                starting_params,
                                 False,
                                 True,
                                 )
@@ -215,7 +218,8 @@ class FitAnalyst(Analyst):
         self.log.info("Perform PSPL+piE fit.")
         starting_params["pi_EN"] = 0.0
         starting_params["pi_EE"] = 0.0
-        results = self.fit_PSPL(starting_params,
+        results = self.fit_PSPL(self.analyst_path+"_PSPL_blend_piE",
+                                starting_params,
                                 True,
                                 True,
                                 )
@@ -225,7 +229,8 @@ class FitAnalyst(Analyst):
         model_ok = self.evaluate_PSPL(results)
         if not model_ok:
             self.log.info("Perform PSPL with parallax without blend fit.")
-            results = self.fit_PSPL(starting_params,
+            results = self.fit_PSPL(self.analyst_path+"_PSPL_noblend_par",
+                                    starting_params,
                                     True,
                                     False,
                                     )
@@ -253,7 +258,8 @@ class FitAnalyst(Analyst):
                            "t_E": 40., }
 
         self.log.info("Perform PSPL with blend fit.")
-        results = self.fit_PSPL(starting_params,
+        results = self.fit_PSPL(self.analyst_path+"_PSPL_blend_no_piE",
+                                starting_params,
                                 False,
                                 True,
                                 )
@@ -306,7 +312,8 @@ class FitAnalyst(Analyst):
                         boundaries["piEE_upper"] = 0.0
 
                     self.log.info("Fit Analyst:  Starting fitting model {:s}".format("PSPL_blend_piE_"+signs))
-                    results = self.fit_PSPL(starting_params,
+                    results = self.fit_PSPL(self.analyst_path+"_PSPL_blend_piE_" + signs,
+                                            starting_params,
                                             True,
                                             True,
                                             use_boundaries=boundaries,

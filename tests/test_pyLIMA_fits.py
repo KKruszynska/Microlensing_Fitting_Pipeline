@@ -1,7 +1,7 @@
 import pytest
 
 from MFPipeline import logs
-from MFPipeline.fitting_support.fit_pyLIMA import fitPyLIMA
+from MFPipeline.fitting_support.pyLIMA.fit_pyLIMA import fitPyLIMA
 
 scenario = {
     "ra": 260.8781,
