@@ -1,5 +1,6 @@
 import numpy as np
-from MFPipeline.fitting_support import fit_pyLIMA
+from MFPipeline.fitting_support.pyLIMA import fit_pyLIMA
+
 
 def cmd_catalogues_to_bands(catalogue):
     """
