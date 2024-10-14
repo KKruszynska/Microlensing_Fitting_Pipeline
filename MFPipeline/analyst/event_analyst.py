@@ -46,7 +46,7 @@ class EventAnalyst(Analyst):
         self.light_curves = []
 
         # start
-        self.log = logs.start_log(analyst_path, log_level, event_name=event_name, stream=stream)
+        self.log = logs.start_log(self.analyst_path, log_level, event_name=self.event_name, stream=stream)
         self.log.info("-------------------------------------------")
         self.log.info("Event Analyst: Analyzing event {:s}".format(event_name))
         self.log.info("-------------------------------------------")
@@ -183,7 +183,7 @@ class EventAnalyst(Analyst):
         lc_quality_status = False
 
         self.log.info("Event Analyst: Starting Light Curve Analyst.")
-        lc_analyst = LightCurveAnalyst(self.config["event_name"], self.analyst_path, self.light_curves,
+        lc_analyst = LightCurveAnalyst(self.event_name, self.analyst_path, self.light_curves,
                                        self.log,
                                        config_dict=self.config
                                        )
@@ -203,7 +203,7 @@ class EventAnalyst(Analyst):
         """
 
         self.log.info("Event Analyst: Starting Fit Analyst.")
-        fit_analyst = FitAnalyst(self.config["event_name"], self.analyst_path, self.light_curves,
+        fit_analyst = FitAnalyst(self.event_name, self.analyst_path, self.light_curves,
                                  self.log,
                                  config_dict=self.config
                                  )

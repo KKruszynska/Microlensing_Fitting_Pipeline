@@ -153,7 +153,7 @@ class FitAnalyst(Analyst):
         if self.config["fitting_package"] == "pyLIMA":
             fit_pspl = fit_pyLIMA.fitPyLIMA(self.log)
             results = fit_pspl.fit_PSPL(fit_name, self.light_curves, starting_params, parallax, blend,
-                                        return_norm_lc=return_norm_lc, use_boundries=use_boundaries)
+                                        return_norm_lc=return_norm_lc, use_boundaries=use_boundaries)
 
         self.log.debug("Fit Analyst: Time elapsed for fitting: {:.2f} s".format(
             time.time() - self.start_time
@@ -287,9 +287,9 @@ class FitAnalyst(Analyst):
                     signs = ""
                     for element in [u_0, pi_en, pi_ee]:
                         if element > 0.:
-                            signs += "+"
+                            signs += "p"
                         else:
-                            signs += "-"
+                            signs += "m"
 
                     if u_0 > 0.:
                         boundaries["u0_lower"] = 0.

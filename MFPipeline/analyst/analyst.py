@@ -18,8 +18,8 @@ class Analyst:
                  config_dict=None,
                  config_path=None):
 
-        self.event_name = event_name
-        self.analyst_path = self.update_analyst_path(analyst_path)
+        self.event_name = self.update_names_paths(event_name)
+        self.analyst_path = self.update_names_paths(analyst_path)
 
         self.config = {}
         if (config_dict != None):
@@ -51,16 +51,16 @@ class Analyst:
 
         except Exception as err:
             print(f"Unexpected %s, %s" % (err, type(err)))
-            
-    def update_analyst_path(self, analyst_path):
+
+    def update_names_paths(self, name):
         """
-        This function swaps minuses in analyst_path to underscores, to avoid problems for some operating systems.
+        This function swaps minuses in name to underscores, to avoid problems for some operating systems.
 
-        :param analyst_path: str, path to the analyst
-        :return: str, updated path to the analyst without minuses
+        :param name: str, name or path to be updated
+        :return: str, updated name without minuses
         """
 
-        updated_path = analyst_path.replace(" ", "_").replace("-", "_")
+        updated_name = name.replace(" ", "_").replace("-", "_")
 
-        return updated_path
+        return updated_name
 
