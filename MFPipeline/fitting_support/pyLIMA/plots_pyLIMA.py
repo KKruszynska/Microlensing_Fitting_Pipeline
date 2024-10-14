@@ -42,15 +42,13 @@ def plot_pyLIMA(event, fit, log):
     tel_names = []
     for tel in event.telescopes:
         tel_names.append(tel.name)
+        print(tel.lightcurve_magnitude["time"])
 
+    log.info("Fit Analyst: Plots: grabbing colours and markers.")
     color_dict, marker_dict = define_plotting_dictionaries(tel_names)
 
     custom_color = []
     custom_marker = []
-
-    print(tel_names)
-    print(color_dict)
-    print(event.telescopes)
 
     for tel in event.telescopes:
         custom_color.append(color_dict[tel.name])
@@ -61,7 +59,13 @@ def plot_pyLIMA(event, fit, log):
     pyLIMA_plots.MARKERS_COLORS = custom_cycler
     pyLIMA_plots.MARKER_SYMBOLS = np.array([custom_marker])
 
-    try:
-        fit.fit_outputs(bokeh_plot=True)
-    except Exception as err:
-        log.error(f"Fit Analyst: %s, %s" % (err, type(err)))
+    log.info("Fit Analyst: Starting a plot.")
+
+    fit.fit_outputs(bokeh_plot=True)
+    log.info("Fit Analyst: Plotting finished.")
+
+    # try:
+    #     fit.fit_outputs(bokeh_plot=True)
+    #     log.info("Fit Analyst: Plotting finished.")
+    # except Exception as err:
+    #     log.error(f"Fit Analyst: %s, %s" % (err, type(err)))

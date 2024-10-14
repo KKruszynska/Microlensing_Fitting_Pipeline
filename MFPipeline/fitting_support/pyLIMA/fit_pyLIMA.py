@@ -5,6 +5,8 @@ import numpy as np
 from pyLIMA import event
 from pyLIMA import telescopes
 
+from pyLIMA.parallax import JPL_ephemerides
+
 from pyLIMA import toolbox
 from pyLIMA.outputs.pyLIMA_plots import create_telescopes_to_plot_model
 from pyLIMA.fits.objective_functions import photometric_residuals_in_magnitude
@@ -61,14 +63,20 @@ class fitPyLIMA(Fitter):
                 t_min, t_max = np.min(lc[:,0]), np.max(lc[:,0])
 
             if "Gaia" in survey:
+                # get spacecraft positions
+                ephemeris = JPL_ephemerides.horizons_API('Gaia', lc[:,0], observatory='Geocentric')[1]
+                spacecraft_positions = {
+                    "photometry": ephemeris
+                }
                 telescope = telescopes.Telescope(
                     name=survey+"_"+band,
                     camera_filter=band,
                     light_curve=lc.astype(float),
                     light_curve_names=["time", "mag", "err_mag"],
                     light_curve_units=["JD", "mag", "mag"],
-                    location = 'Space',
-                    spacecraft_name = 'Gaia'
+                    location = "Space",
+                    spacecraft_name = "Gaia",
+                    spacecraft_positions = spacecraft_positions
                 )
             else:
                 telescope = telescopes.Telescope(
@@ -77,6 +85,7 @@ class fitPyLIMA(Fitter):
                     light_curve=lc.astype(float),
                     light_curve_names=['time','mag','err_mag'],
                     light_curve_units=['JD','mag','mag'],
+                    location="Earth",
                     )
 
             event_to_fit.telescopes.append(telescope)
@@ -86,12 +95,11 @@ class fitPyLIMA(Fitter):
         event_to_fit.find_survey(survey_to_align)
         event_to_fit.check_event()
 
-
         return event_to_fit
 
     def fit_PSPL(self, fit_name, light_curves, starting_params, parallax, blend,
                  return_norm_lc=False,
-                 use_boundries=None,
+                 use_boundaries=None,
                  ):
         '''
         Perform a PSPL fit using the selected fit method.
@@ -104,6 +112,7 @@ class fitPyLIMA(Fitter):
         :param parallax: boolean, fit with parallax?
         :param blend: boolean, fit with blending?
         :param return_norm_lc: boolean, optional, return light curve data aligned to the model?
+        :param use_boundaries: dict, dictionary containing boundaries defined by the User
 
         :return: list with results
         '''
@@ -131,7 +140,7 @@ class fitPyLIMA(Fitter):
         # fit_event = DE_fit.DEfit(pspl)
 
         # Use boundries like in mop.toolbox.fittools
-        if use_boundries is None:
+        if use_boundaries is None:
             self.log.info("Using boundaries default for MFPipeline.")
             delta_t0 = 10.
             default_t0_lower = fit_event.fit_parameters["t0"][1][0]
@@ -150,11 +159,11 @@ class fitPyLIMA(Fitter):
             default_t0_upper = fit_event.fit_parameters["t0"][1][1]
             fit_event.fit_parameters["t0"][1] = [default_t0_lower, default_t0_upper + delta_t0]
             # t_E, u_0 and pi_E params passed by user
-            fit_event.fit_parameters["tE"][1] = [use_boundries["tE_lower"], use_boundries["tE_upper"]]
-            fit_event.fit_parameters["u0"][1] = [use_boundries["u0_lower"], use_boundries["u0_upper"]]
+            fit_event.fit_parameters["tE"][1] = [use_boundaries["tE_lower"], use_boundaries["tE_upper"]]
+            fit_event.fit_parameters["u0"][1] = [use_boundaries["u0_lower"], use_boundaries["u0_upper"]]
             if parallax:
-                fit_event.fit_parameters["piEN"][1] = [use_boundries["piEN_lower"], use_boundries["piEN_upper"]]
-                fit_event.fit_parameters["piEE"][1] = [use_boundries["piEE_lower"], use_boundries["piEE_upper"]]
+                fit_event.fit_parameters["piEN"][1] = [use_boundaries["piEN_lower"], use_boundaries["piEN_upper"]]
+                fit_event.fit_parameters["piEE"][1] = [use_boundaries["piEE_lower"], use_boundaries["piEE_upper"]]
 
         self.log.info("Staring fit.")
         fit_event.fit()
@@ -166,6 +175,7 @@ class fitPyLIMA(Fitter):
 
         # Produce fit outputs here
         plots_pyLIMA.plot_pyLIMA(event, fit_event, self.log)
+        # fit_event.fit_outputs(bokeh_plot=True)
 
         if return_norm_lc:
             norm_lc, residuals = self.get_aligned_data(pspl, fit_event.fit_results['best_model'])
