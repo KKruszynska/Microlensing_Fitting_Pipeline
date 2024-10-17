@@ -138,13 +138,23 @@ class EventAnalyst(Analyst):
             band = entry["band"]
             if "path" in entry:
                 light_curve = np.genfromtxt(entry["path"], unpack=True)
-                light_curves.append((self.event_name, light_curve, survey, band))
+                light_curves.append({
+                    "event_name": self.event_name,
+                    "lc": light_curve,
+                    "survey": survey,
+                    "band": band
+                })
             elif "lc" in entry:
                 if type(entry["lc"]) == type([1,1]):
                     light_curve = entry["lc"]
                 else:
                     light_curve = json.loads(entry["lc"])
-                light_curves.append((self.event_name, light_curve, survey, band))
+                light_curves.append({
+                    "event_name": self.event_name,
+                    "lc": light_curve,
+                    "survey": survey,
+                    "band": band
+                })
             else:
                 self.log.error("Event Analyst: Problem! No light curve data specified")
 
