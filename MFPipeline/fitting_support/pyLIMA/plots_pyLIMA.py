@@ -42,7 +42,6 @@ def plot_pyLIMA(event, fit, log):
     tel_names = []
     for tel in event.telescopes:
         tel_names.append(tel.name)
-        print(tel.lightcurve_magnitude["time"])
 
     log.info("Fit Analyst: Plots: grabbing colours and markers.")
     color_dict, marker_dict = define_plotting_dictionaries(tel_names)

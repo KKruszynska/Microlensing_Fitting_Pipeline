@@ -3,7 +3,6 @@ import json
 import time
 
 from MFPipeline.analyst.analyst import Analyst
-
 from MFPipeline.fitting_support.pyLIMA import fit_pyLIMA
 
 
@@ -86,6 +85,7 @@ class FitAnalyst(Analyst):
                                 return_norm_lc=True,
                                 )
         fit_params_PSPL_nopar = results[0]
+        t_0 = fit_params_PSPL_nopar["t0"]
         aligned_data, residuals = results[1], results[2]
         self.log.info("Fit Analyst:  Finished fitting.")
 
@@ -95,12 +95,19 @@ class FitAnalyst(Analyst):
         self.log.info("Identify ongoing event.")
         baseline_mag = fit_params_PSPL_nopar["baseline_magnitude"]
         self.start_time = time.time()
-        ongoing = self.check_ongoing(aligned_data, residuals, baseline_mag)
+        ongoing_ampl, t_last = self.check_ongoing(aligned_data, residuals, baseline_mag)
+        ongoing_time = self.check_ongoing_time(fit_params_PSPL_nopar, t_last)
+        ongoing_mag = self.check_ongoing_time(fit_params_PSPL_nopar, t_last)
+
+        ongoing = False
+        if ongoing_ampl or ongoing_time or ongoing_ampl:
+            ongoing = True
+
         self.log.debug("Fit Analyst: Time elapsed for ongoing check: {:.2f} s".format(
             time.time() - self.start_time
         ))
 
-        return ongoing
+        return ongoing, t_0
 
     def placeholder(self):
         """
@@ -160,12 +167,34 @@ class FitAnalyst(Analyst):
         ))
 
         return results
-
-    def check_ongoing(self, aligned_data, residuals, baseline_mag):
+    def check_ongoing_time(self, model_params, time_now):
         """
-        Checks if the event is over or not.
+        Checks if based on current time and model, the event reached baseline.
+        This check is passed if current time is smaller than the sum of the time
+        of peak and Einstein time.
 
-        :return: boolean, is the event over?
+        :param model_params: dict, dictionary containing model parameters
+        :param time_now: float, current time in JD
+        :return: boolean flag if the event is ongoing
+        """
+        ongoing = False
+        t_0, t_E = model_params["t0"], model_params["tE"]
+
+        if t_0 + t_E < time_now:
+            ongoing = True
+
+        return ongoing
+
+    def check_ongoing_amplitude(self, aligned_data, residuals, baseline_mag):
+        """
+        Checks if the event is over or not, comparing baseline magnitude, magnitude
+        of the last point aligned with the model and the standard deviation of the
+        model residuals.
+
+        :param aligned_data: numpy array, array containing photometric data alligned to a microlensing model
+        :param residuals: numpy array, array containing residuals of the microlensing model
+        :param baseline_mag: float, baseline magnitude of the model
+        :return: boolean, is the event over and the time of the last point
         """
         ongoing = False
 
@@ -184,9 +213,30 @@ class FitAnalyst(Analyst):
                 if np.abs(data[-1, 1] - baseline_mag) > std_mag:
                     ongoing = True
 
+        return ongoing, t_last
+
+    def check_ongoing_magnification(self, model_params, time_now):
+        """
+        Checks if the event is ongoing based on microlensing model's magnification.
+
+        :param model_params: dict, dictionary containg microlensing model parmeters
+        :param time_now: current time
+        :return: boolean flag if the event is still ongoing
+        """
+        ongoing = False
+        t_0, u_0, t_E = model_params["t0"], model_params["u0"], model_params["tE"]
+
+        tau = (time_now - t_0) / t_E
+        u = np.sqrt(u_0**2 + tau**2)
+        amplification = (u**2 + 2) / (u * np.sqrt(u**2 +4))
+
+        if amplification > 1.05:
+            ongoing = True
+
         return ongoing
 
-    def perform_ongoing_fit(self):
+
+    def perform_ongoing_fit(self, t_0):
         """
         Perform fitting procedure for an ongoing event.
         According to the Software Requirements, the analyst
@@ -198,10 +248,9 @@ class FitAnalyst(Analyst):
 
         self.log.info("Fit Analyst: Starting ongoing event fit.")
         self.log.info("Find PSPL starting parameters.")
-        time_of_peak = self.find_time_of_peak()
         starting_params = {"ra": self.config["ra"],
                            "dec": self.config["dec"],
-                           "t_0": time_of_peak,
+                           "t_0": t_0,
                            "u_0": 0.1,
                            "t_E": 40., }
 
@@ -216,6 +265,7 @@ class FitAnalyst(Analyst):
         self.log.info("Evaluate PSPL fit.")
 
         self.log.info("Perform PSPL+piE fit.")
+        starting_params["t_0"] = t_0
         starting_params["pi_EN"] = 0.0
         starting_params["pi_EE"] = 0.0
         results = self.fit_PSPL(self.analyst_path+"_PSPL_blend_piE",
@@ -239,7 +289,7 @@ class FitAnalyst(Analyst):
         self.log.info("Fit Analyst:  Finished fitting.")
         self.log.debug("Best models:", self.best_results)
 
-    def perform_finished_fit_PSPL(self):
+    def perform_finished_fit_PSPL(self, t_0):
         """
         Perform fitting procedure for a finished event.
         According to the Software Requirements, the analyst
@@ -253,7 +303,7 @@ class FitAnalyst(Analyst):
         time_of_peak = self.find_time_of_peak()
         starting_params = {"ra": self.config["ra"],
                            "dec": self.config["dec"],
-                           "t_0": time_of_peak,
+                           "t_0": t_0,
                            "u_0": 0.1,
                            "t_E": 40., }
 
@@ -268,7 +318,7 @@ class FitAnalyst(Analyst):
 
         self.log.info("Perform PSPL+piE fit.")
 
-        starting_params["t_0"] = self.best_results["PSPL_blend_no_piE"]["t0"]
+        # starting_params["t_0"] = self.best_results["PSPL_blend_no_piE"]["t0"]
 
         starting_u_0s = [-0.1, 0.1]
         starting_pi_ens = [-0.1, 0.1]
@@ -292,24 +342,24 @@ class FitAnalyst(Analyst):
                             signs += "m"
 
                     if u_0 > 0.:
-                        boundaries["u0_lower"] = 0.
+                        boundaries["u0_lower"] = -0.05
                         boundaries["u0_upper"] = 2.
                     else:
                         boundaries["u0_lower"] = -2.
-                        boundaries["u0_upper"] = 0.
+                        boundaries["u0_upper"] = 0.05
 
                     if pi_en > 0.:
-                        boundaries["piEN_lower"] = 0.
+                        boundaries["piEN_lower"] = -0.05
                         boundaries["piEN_upper"] = 2.0
                     else:
                         boundaries["piEN_lower"] = -2.0
-                        boundaries["piEN_upper"] = 0.
+                        boundaries["piEN_upper"] = 0.05
                     if pi_ee > 0.:
-                        boundaries["piEE_lower"] = 0.0
+                        boundaries["piEE_lower"] = -0.05
                         boundaries["piEE_upper"] = 2.0
                     else:
                         boundaries["piEE_lower"] = -2.0
-                        boundaries["piEE_upper"] = 0.0
+                        boundaries["piEE_upper"] = 0.05
 
                     self.log.info("Fit Analyst:  Starting fitting model {:s}".format("PSPL_blend_piE_"+signs))
                     results = self.fit_PSPL(self.analyst_path+"_PSPL_blend_piE_" + signs,
@@ -319,6 +369,7 @@ class FitAnalyst(Analyst):
                                             use_boundaries=boundaries,
                                             )
                     self.best_results["PSPL_blend_piE_"+signs] = results
+                    starting_params["t_0"] = results["t0"]
 
                     self.log.info("Fit Analyst:  Finished fitting model {:s}".format("PSPL_blend_piE_"+signs))
 
@@ -365,11 +416,11 @@ class FitAnalyst(Analyst):
         """
         fit_ok = True
 
-        cov_fit = model_params['fit_covariance']
+        cov_fit = np.asarray(model_params["fit_covariance"])
 
-        if (np.abs(model_params['blend_magnitude']) < 3.0 * cov_fit[4, 4] ** 0.5) or \
-                (np.abs(model_params['source_magnitude']) < 3.0 * cov_fit[3, 3] ** 0.5) or \
-                (np.abs(model_params['tE']) < 3. * cov_fit[2, 2] ** 0.5):
+        if (np.abs(model_params["blend_magnitude"]) < 3.0 * cov_fit[4, 4] ** 0.5) or \
+                (np.abs(model_params["source_magnitude"]) < 3.0 * cov_fit[3, 3] ** 0.5) or \
+                (np.abs(model_params["tE"]) < 3. * cov_fit[2, 2] ** 0.5):
             fit_ok = False
 
         return fit_ok
@@ -381,15 +432,19 @@ class FitAnalyst(Analyst):
         :return: dictionary with all found models
         """
 
-        ongoing = self.perform_ongoing_check()
+        self.log.debug("Fit Analysy: Performing a fit.")
+        ongoing, t_0 = self.perform_ongoing_check()
 
+        self.log.debug("Fit Analysy: Event identified as ongoing? %s."%(ongoing))
         if ongoing:
-            self.perform_ongoing_fit()
+            self.log.info("Fit Analysy: Performing an ongoing fit.")
+            self.perform_ongoing_fit(t_0)
             # perform model evaluation here
             # perform anomaly finder on best model
 
         else:
-            self.perform_finished_fit_PSPL()
+            self.log.info("Fit Analysy: Performing a finished event fit.")
+            self.perform_finished_fit_PSPL(t_0)
             # perform model evaluation here
             # perform anomaly finder on best model
             # if anomaly: perform_finished_fit_multiple()
