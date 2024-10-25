@@ -42,7 +42,6 @@ class EventAnalyst(Analyst):
 
         super().__init__(event_name, analyst_path, config_dict=config_dict, config_path=config_path)
         # Analyst.__init__(self, event_name, analyst_path, config_dict=config_dict, config_path=config_path)
-
         self.light_curves = []
 
         # start
@@ -68,28 +67,35 @@ class EventAnalyst(Analyst):
         """
 
         try:
-            with open(config_path, 'r') as file:
-                event_config = yaml.safe_load(file)
+            file_format = config_path.split(".")[-1]
 
-            if "lc_analyst" in event_config:
-                self.config["lc_analyst"] = event_config.get("lc_analyst")
-                self.log.info("Event Analyst: Light Curve Analyst configuration received.")
-            else:
-                self.log.info("Event Analyst: No Light Curve Analyst config, it will not be launched.")
+            if file_format == "yaml":
+                with open(config_path, 'r') as file:
+                    event_config = yaml.safe_load(file)
+            elif file_format == "json":
+                with open(config_path, 'r') as file:
+                    event_config = json.load(file)
+                    file.close()
 
-            if "fit_analyst" in event_config:
-                self.config["fit_analyst"] = event_config.get("fit_analyst")
-                self.log.info("Event Analyst: Fit Analyst configuration received.")
-            else:
-                self.log.info("Event Analyst: No Fit Analyst config, it will not be launched.")
+                if "lc_analyst" in event_config:
+                    self.config["lc_analyst"] = event_config.get("lc_analyst")
+                    self.log.info("Event Analyst: Light Curve Analyst configuration received.")
+                else:
+                    self.log.info("Event Analyst: No Light Curve Analyst config, it will not be launched.")
 
-            if "cmd_analyst" in event_config:
-                self.config["cmd_analyst"] = event_config.get("cmd_analyst")
-                self.log.info("Event Analyst: CMD Analyst configuration received.")
-            else:
-                self.log.info("Event Analyst: No CMD Analyst config, it will not be launched.")
+                if "fit_analyst" in event_config:
+                    self.config["fit_analyst"] = event_config.get("fit_analyst")
+                    self.log.info("Event Analyst: Fit Analyst configuration received.")
+                else:
+                    self.log.info("Event Analyst: No Fit Analyst config, it will not be launched.")
 
-            self.light_curves = self.parse_light_curves(event_config.get("light_curves"))
+                if "cmd_analyst" in event_config:
+                    self.config["cmd_analyst"] = event_config.get("cmd_analyst")
+                    self.log.info("Event Analyst: CMD Analyst configuration received.")
+                else:
+                    self.log.info("Event Analyst: No CMD Analyst config, it will not be launched.")
+
+                self.light_curves = self.parse_light_curves(event_config.get("light_curves"))
 
         except Exception as err:
             self.log.error(f"Event Analyst: %s, %s" % (err, type(err)))
@@ -314,8 +320,10 @@ if __name__ == "__main__":
     stream = False
     event = ""
     analyst_path = ""
+    config_path = ""
     error = False
     error_string = ""
+    print("============================= Hello!!")
 
     if "--event_name" in sys.argv:
         idx = sys.argv.index("--event_name")
@@ -346,8 +354,10 @@ if __name__ == "__main__":
             stream = False
 
     if "--config_path" in sys.argv:
+        idx = sys.argv.index("--config_path")
+        config_path += sys.argv[idx + 1]
         event_analyst = EventAnalyst(event, analyst_path, log_level,
-                                     config_path=analyst_path + "config.yaml",
+                                     config_path=config_path,
                                      stream=stream
                                      )
     elif "--config_dict" in sys.argv:

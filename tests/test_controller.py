@@ -14,15 +14,16 @@ class TestControllerPaths:
     def test_launch_analysts(self):
         from MFPipeline.controller.controller import Controller
 
-        event_list = [#"GaiaDR3-ULENS-018",
+        event_list = ["GaiaDR3-ULENS-018",
                       "GaiaDR3-ULENS-025"]
         config = {
             "python_compiler": "python",
-            "group_processing_limit": 3,
+            "group_processing_limit": 1,
             "events_path":
                 "tests/test_controller/",
             "software_dir":
                 "MFPipeline/analyst/",
+            "config_type": "yaml",
             "log_stream": False,
             "log_location":
                 "tests/test_controller/",
@@ -114,6 +115,103 @@ class TestControllerDicts:
                 "tests/test_controller/",
             "log_level": "debug"
             }
+
+        controller = Controller(event_list, config_dict=config, analyst_dicts=analyst_jsons)
+        controller.launch_analysts()
+
+
+class TestControllerOngoing:
+    '''
+    Tests to check if controller works fine.
+    '''
+
+    def test_launch_analysts(self):
+        from MFPipeline.controller.controller import Controller
+
+        event_list = ["Gaia24amo", "Gaia24cbz", "AT2024kwu"]
+
+        coordinates = {
+            "Gaia24amo": {
+                "ra": 249.14892083,
+                "dec": -53.74991944,
+            },
+            "Gaia24cbz": {
+                "ra": 251.87178,
+                "dec": -47.20051,
+            },
+            "AT2024kwu": {
+                "ra": 102.93358333,
+                "dec": 44.352166666,
+            },
+        }
+
+        analyst_jsons = {}
+        path_lightcurves = "./examples/light_curves/"
+        os.chdir(path_lightcurves)
+
+        for event in event_list:
+            dictionary = {
+                "event_name": event,
+                "ra": "%f" % coordinates[event]["ra"],
+                "dec": "%f" % coordinates[event]["dec"],
+                "lc_analyst": {
+                    "n_max": 10,
+                },
+            "fit_analyst": {
+                "fitting_package": "pyLIMA",
+                }
+            }
+
+            light_curves = []
+            for file in glob.glob("*%s*.dat" % event):
+                light_curve = np.genfromtxt(file, usecols=(0, 1, 2), unpack=True)
+                light_curve = light_curve.T
+
+                survey = ""
+                band = ""
+
+                if "GSA" in file:
+                    survey = "Gaia"
+                elif "LCO" in file:
+                    survey = "LCO"
+                elif "ZTF" in file:
+                    survey = "ZTF"
+                elif "ATLAS" in file:
+                    survey = "ATLAS"
+
+                txt = file.split(".")
+                band = txt[0].split("_")[-1]
+
+                dict = {
+                    "survey": survey,
+                    "band": band,
+                    "lc": json.dumps(light_curve.tolist())
+                }
+                light_curves.append(dict)
+
+            dictionary["light_curves"] = light_curves
+            file_name = "../../tests/test_controller_ongoing/" + "%s.json" % (event)
+            with open(file_name, "w", encoding="utf-8") as file:
+                json.dump(dictionary, file, ensure_ascii=False, indent=4)
+            js = json.dumps(dictionary)
+            analyst_jsons[event] = js
+
+
+        path_lightcurves = "../../"
+        os.chdir(path_lightcurves)
+
+        config = {
+            "python_compiler": "python",
+            "group_processing_limit": 4,
+            "events_path":
+                "tests/test_controller_ongoing/",
+            "software_dir":
+                "MFPipeline/analyst/",
+            "log_stream": False,
+            "log_location":
+                "tests/test_controller_ongoing/",
+            "log_level": "debug"
+        }
 
         controller = Controller(event_list, config_dict=config, analyst_dicts=analyst_jsons)
         controller.launch_analysts()

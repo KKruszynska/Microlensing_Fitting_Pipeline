@@ -1,11 +1,20 @@
 import yaml
+import logging
+import sys
+import os
 
 import subprocess
 from concurrent.futures import ProcessPoolExecutor
 
-from MFPipeline import logs
+# from MFPipeline import logs
+logger = logging.getLogger(__name__)
+formatter = logging.Formatter('%(asctime)s.%(msecs)03d - %(levelname)s - %(message)s',
+                                  datefmt='%Y-%m-%d %H:%M:%S')
 
 def run_parallel_analyst(command):
+    logger.info("About to start subprocess for event: ")
+    logger.info("Command: "+str(command[:-2]))
+    logger.debug("Command: " + str(command))
     subprocess.run(command, shell=False)
 
 class Controller:
@@ -31,13 +40,33 @@ class Controller:
         if config_dict is not None:
             # READ config_dict
             self.config = config_dict
-            if "log_stream" in self.config:
-                self.log = logs.start_log(self.config["log_location"],
-                                          self.config["log_level"],
-                                          stream=self.config["log_stream"])
+
+            if (self.config["log_level"] == 'debug'):
+                log_level = logging.DEBUG
+            elif (self.config["log_level"] == 'info'):
+                log_level = logging.INFO
             else:
-                self.log = logs.start_log(self.config["log_location"],
-                                          self.config["log_level"])
+                log_level = logging.ERROR
+
+            logger.setLevel(log_level)
+
+            if self.config["log_stream"]:
+                ch = logging.StreamHandler(stream=sys.stdout)
+                ch.setLevel(log_level)
+                ch.setFormatter(formatter)
+                logger.addHandler(ch)
+            else:
+                filename = self.config["log_location"] + 'controller.log'
+
+                if not os.path.isdir(self.config["log_location"]):
+                    os.makedirs(self.config["log_location"])
+                fh = logging.FileHandler(filename, encoding='utf-8')
+                fh.setLevel(log_level)
+                fh.setFormatter(formatter)
+                logger.addHandler(fh)
+
+            logger.info("Processing started. Opened log.")
+
         elif config_path is not None:
             # read config path
             self.config = self.parse_config(config_path)
@@ -62,13 +91,14 @@ class Controller:
             config["software_dir"] = controller_config.get("software_dir")
             config["python_compiler"] = controller_config.get("python_compiler")
             config["group_processing_limit"] = controller_config.get("group_processing_limit")
+            config["config_type"] = controller_config.get("config_type")
             config["log_location"] = controller_config.get("log_location")
             config["log_level"] = controller_config.get("log_level")
             if "log_stream" in controller_config:
                 config["log_stream"] = controller_config.get("log_stream")
 
         except Exception as err:
-            self.log.exception(f"Controller: %s, %s" % (err, type(err)))
+            logger.exception(f"Controller: %s, %s" % (err, type(err)))
             config = None
 
         return config
@@ -80,10 +110,10 @@ class Controller:
         :return: Status of work???
         '''
 
-        self.log.info(f"Controller: Start processing.")
+        logger.info(f"Controller: Start processing.")
         # First create all the commands to run the analysts
         commands = []
-        self.log.debug(f"Controller: Creating the commands to launch analysts.")
+        logger.debug(f"Controller: Creating the commands to launch analysts.")
         for event in self.event_list:
             command = [self.config["python_compiler"],
                        self.config["software_dir"]+"event_analyst.py",
@@ -97,29 +127,34 @@ class Controller:
                 command.append(str(self.config["log_stream"]))
 
             if self.analyst_dicts is not None:
-                self.log.debug(f"Controller: Analyst dicts specified.")
+                logger.debug(f"Controller: Analyst dicts specified.")
                 command.append("--config_dict")
                 command.append(str(self.analyst_dicts[event]))
             else:
-                self.log.debug(
+                logger.debug(
                     f"Controller: Analyst dicts not specified, will look for information in their config files."
                 )
                 command.append("--config_path")
-                command.append(self.config["events_path"] + str(event) + "/config.yaml")
+                command.append(self.config["events_path"] + str(event) + "/config." + self.config["config_type"])
 
             commands.append(command)
 
         #Running analysts in batches
-        self.log.info(f"Controller: Commands created. Spawning processes.")
-        self.log.debug(f"Controller: Max workers set as: %d."%self.config["group_processing_limit"])
+        logger.info(f"Controller: Commands created. Spawning processes.")
+        logger.debug(f"Controller: Max workers set as: %d."%self.config["group_processing_limit"])
+
         with ProcessPoolExecutor(max_workers=self.config["group_processing_limit"] ) as executor:
-            self.log.debug(f"Controller: New process spawned.")
+            logger.debug(f"Controller: New process spawned.")
             executor.map(run_parallel_analyst, commands)
             # for result in executor.map(run_parallel_analyst, commands):
             #     print(result)
             # print(futures.result())
 
-        self.log.info(f"Controller: Processing finished.")
-        logs.close_log(self.log)
+        logger.info(f"Controller: Processing finished.")
+        for handler in logger.handlers:
+            logger.info('Processing complete.\n')
+            if isinstance(handler, logging.FileHandler):
+                handler.close()
+            logger.removeFilter(handler)
 
 
