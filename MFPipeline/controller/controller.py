@@ -14,7 +14,6 @@ formatter = logging.Formatter('%(asctime)s.%(msecs)03d - %(levelname)s - %(messa
 def run_parallel_analyst(command):
     logger.info("About to start subprocess for event: ")
     logger.info("Command: "+str(command[:-2]))
-    logger.debug("Command: " + str(command))
     subprocess.run(command, shell=False)
 
 class Controller:
