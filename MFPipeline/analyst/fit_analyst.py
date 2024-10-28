@@ -95,12 +95,12 @@ class FitAnalyst(Analyst):
         self.log.info("Identify ongoing event.")
         baseline_mag = fit_params_PSPL_nopar["baseline_magnitude"]
         self.start_time = time.time()
-        ongoing_ampl, t_last = self.check_ongoing(aligned_data, residuals, baseline_mag)
+        ongoing_ampl, t_last = self.check_ongoing_amplitude(aligned_data, residuals, baseline_mag)
         ongoing_time = self.check_ongoing_time(fit_params_PSPL_nopar, t_last)
-        ongoing_mag = self.check_ongoing_time(fit_params_PSPL_nopar, t_last)
+        ongoing_mag = self.check_ongoing_magnification(fit_params_PSPL_nopar, t_last)
 
         ongoing = False
-        if ongoing_ampl or ongoing_time or ongoing_ampl:
+        if ongoing_ampl or ongoing_time or ongoing_mag:
             ongoing = True
 
         self.log.debug("Fit Analyst: Time elapsed for ongoing check: {:.2f} s".format(
