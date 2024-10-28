@@ -128,7 +128,8 @@ class TestControllerOngoing:
     def test_launch_analysts(self):
         from MFPipeline.controller.controller import Controller
 
-        event_list = ["Gaia24amo", "Gaia24cbz", "AT2024kwu"]
+        event_list = ["Gaia24amo", "Gaia24cbz", "AT2024kwu", "GaiaDR3-ULENS-018",
+                      "GaiaDR3-ULENS-025"]
 
         coordinates = {
             "Gaia24amo": {
@@ -142,6 +143,14 @@ class TestControllerOngoing:
             "AT2024kwu": {
                 "ra": 102.93358333,
                 "dec": 44.352166666,
+            },
+            "GaiaDR3-ULENS-018": {
+                "ra": 271.119,
+                "dec": -29.8162,
+            },
+            "GaiaDR3-ULENS-025": {
+                "ra": 260.8781,
+                "dec": -27.3788,
             },
         }
 
@@ -172,15 +181,32 @@ class TestControllerOngoing:
 
                 if "GSA" in file:
                     survey = "Gaia"
+                    txt = file.split(".")
+                    band = txt[0].split("_")[-1]
                 elif "LCO" in file:
                     survey = "LCO"
+                    txt = file.split(".")
+                    band = txt[0].split("_")[-1]
                 elif "ZTF" in file:
                     survey = "ZTF"
+                    txt = file.split(".")
+                    band = txt[0].split("_")[-1]
                 elif "ATLAS" in file:
                     survey = "ATLAS"
-
-                txt = file.split(".")
-                band = txt[0].split("_")[-1]
+                    txt = file.split(".")
+                    band = txt[0].split("_")[-1]
+                elif ("mod" in file):
+                    survey = "Gaia"
+                    txt = file.split(".")
+                    band = txt[0].split("_")[-1]
+                    light_curve[:, 0] = light_curve[:, 0] + 2450000.
+                elif ("OGLE" in file):
+                    survey = "OGLE"
+                    band = "I"
+                elif ("KMT" in file):
+                    survey = "KMTNet_" + file[-7]
+                    band = "I"
+                    light_curve[:, 0] = light_curve[:, 0] + 2450000.
 
                 dict = {
                     "survey": survey,
@@ -202,7 +228,7 @@ class TestControllerOngoing:
 
         config = {
             "python_compiler": "python",
-            "group_processing_limit": 4,
+            "group_processing_limit": 2,
             "events_path":
                 "tests/test_controller_ongoing/",
             "software_dir":
