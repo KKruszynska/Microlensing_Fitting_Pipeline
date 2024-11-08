@@ -95,7 +95,7 @@ class testLCAnalyst:
                     "event_name": config["event_name"],
                     "lc": light_curve,
                     "survey": survey,
-                    "band": band
+                    "band": band,
                 })
             elif ("lc" in entry):
                 light_curve = entry["lc"]
@@ -103,7 +103,7 @@ class testLCAnalyst:
                     "event_name": config["event_name"],
                     "lc": light_curve,
                     "survey": survey,
-                    "band": band
+                    "band": band,
                 })
 
         log = logs.start_log(path_outputs, "debug", event_name=config["event_name"], stream=True)
@@ -132,7 +132,6 @@ class testLCAnalyst:
             if ("path" in entry):
                 light_curve = np.genfromtxt(entry["path"], unpack=True)
                 light_curves.append({
-                    "event_name": config["event_name"],
                     "lc": light_curve,
                     "survey": survey,
                     "band": band
@@ -140,7 +139,6 @@ class testLCAnalyst:
             elif ("lc" in entry):
                 light_curve = entry["lc"]
                 light_curves.append({
-                    "event_name": config["event_name"],
                     "lc": light_curve,
                     "survey": survey,
                     "band": band
@@ -157,6 +155,55 @@ class testLCAnalyst:
             assert len(negative_errs[0]) == len([])
 
 
+class testBadLightCurves():
+    def test_bad_lc(self):
+        from MFPipeline.analyst.light_curve_analyst import LightCurveAnalyst
+
+        config = {}
+        config["event_name"] = "Test_negative_errs"
+        path_outputs = "tests/test_lc_analyst/"
+        config["ra"], config["dec"] = 1., 1.
+        config["lc_analyst"] = {}
+        config["lc_analyst"]["n_max"] = 10.
+
+        dict = {
+                "survey": "GSA",
+                "band": "G",
+                "lc": [[2457000., 17.00, -0.02], [2457001., 17.01, np.nan], [2457002., 17.02, 0.02],
+                       [2457003., np.inf, 0.02], [2457004., 17.04, -0.02], [2457005., 17.05, 0.02],
+                       [2457006., np.nan, 0.02], [2457007., 17.09, 0.02], [2457008., 17.2, 0.02],
+                       [2457006., 17.0, np.inf], [2457007., 17.09, 0.02], [2457008., 17.2, 0.02], ],
+                }
+
+        light_curves = [dict]
+        config["light_curves"] = light_curves
+
+        log = logs.start_log(path_outputs, "debug", event_name=config["event_name"], stream=True)
+        analyst = LightCurveAnalyst(config["event_name"], path_outputs, light_curves, log, config_dict=config)
+        analyst.perform_quality_check()
+
+        for entry in analyst.light_curves:
+            lc = entry["lc"]
+
+            negative_errs = np.where(lc[:, 2] < 0)
+            assert len(negative_errs[0]) == len([])
+
+            out_of_bounds = np.where(lc[:, 1] < -10)
+            assert len(out_of_bounds[0]) == len([])
+            out_of_bounds = np.where(lc[:, 1] > 40)
+            assert len(out_of_bounds[0]) == len([])
+
+            unique_entries = np.unique(lc[:, 0])
+            assert len(unique_entries) == len(lc[:, 0])
+
+            finite_mag = np.isfinite(lc[:, 1])
+            finite_err = np.isfinite(lc[:, 2])
+
+            assert len(finite_mag) == len(lc[:, 0])
+            assert len(finite_err) == len(lc[:, 0])
+
+        logs.close_log(log)
+
 
 def test_run():
     case = scenario_gaia
@@ -168,3 +215,6 @@ def test_run():
     test = testLCAnalyst(case)
     test.test_parse_config()
     test.test_run_analyst()
+
+    test = testBadLightCurves()
+    test.test_bad_lc()

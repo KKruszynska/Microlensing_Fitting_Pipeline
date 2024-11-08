@@ -66,21 +66,39 @@ class LightCurveAnalyst(Analyst):
         for entry in self.light_curves:
             #extract np array with the light curve
             lc = np.array(entry["lc"])
-            self.log.debug("LC Analyst: Masking negative errors.")
-            mask_neg_err = self.flag_negative_errorbars(lc)
-            self.log.debug("LC Analyst: Applying negative error mask.")
-            cleaned_lc = lc[mask_neg_err]
-            entry["lc"] = cleaned_lc
+
+            self.log.debug("LC Analyst: Masking bad data.")
+            mask_duplicate = self.flag_duplicate_entries(lc)
+            mask_inf_entry = self.flag_infinite_entries(lc)
+            prel_mask = np.logical_and(mask_inf_entry, mask_duplicate)
+            prel_lc = lc[prel_mask]
+            self.log.debug("LC Analyst: Applying non numerical and duplicates mask.")
+
+            mask_inv_mags = self.flag_invalid_mags(prel_lc)
+            self.log.debug("LC Analyst: Applying bad data mask.")
+            cleaned_lc = prel_lc[mask_inv_mags]
+
+            mask_neg_err = self.flag_negative_errorbars(prel_lc)
+            fin_lc = cleaned_lc[mask_neg_err]
+            entry["lc"] = fin_lc
         self.log.info("LC Analyst: Quality check ended.")
 
 
-    def flag_NULL_entries(self, light_curve):
-        #load light curve into a pandas df
-        #find all NaNs using isnull() function
-        mask_null = np.where(light_curve[:,1] == "NULL")
+    def flag_infinite_entries(self, light_curve):
+        '''
+        Flags entries with non-finite values. Similar like in pyLIMA.
+        :param light_curve: numpy array, an array containing JD, magnitude and error
+        :return: mask with entries that don't have invalid magnitudes
+        '''
+        mask_finite_mag = np.isfinite(light_curve[:,1])
+        mask_finite_err = np.isfinite(light_curve[:, 2])
+        final_mask = np.logical_and(mask_finite_mag, mask_finite_err)
+
+        return final_mask
 
     def flag_huge_errorbars(self, light_curve):
         """
+        Flag entries with huge errorbars.
         :param light_curve: numpy array, an array containing JD, magnitude and error
         :return: mask containing entries that have huge uncertianity values
         """
@@ -89,10 +107,38 @@ class LightCurveAnalyst(Analyst):
 
     def flag_negative_errorbars(self, light_curve):
         """
+        Flags entries with negative errorbars.
         :param light_curve: numpy array, an array containing JD, magnitude and error
-        :return: array with entries that don't have negative uncertianities
+        :return: mask with entries that don't have negative uncertianities
         """
         mask_neg_err = np.where(light_curve[:, 2] > 0)
 
         return mask_neg_err
+
+    def flag_invalid_mags(self, light_curve):
+        """
+        Flags entries with magnitudes smaller than -10. Many surveys indicate an invalid entry
+        by applying -99 or 99 to the light curves.
+        :param light_curve: numpy array, an array containing JD, magnitude and error
+        :return: mask with entries that don't have invalid magnitudes
+        """
+        mask_inv_mag = np.where((light_curve[:, 1] > -10) & (light_curve[:, 1] < 40))
+
+        return mask_inv_mag
+
+    def flag_duplicate_entries(self, light_curve):
+        """
+        Flags duplicate entries in the light curve.
+        :param light_curve: numpy array, an array containing JD, magnitude and error
+        :return: mask with entries that are not duplicated
+        """
+        unique_entries, unique_index = np.unique(light_curve[:,0], return_index = True)
+        mask_unique = []
+        for i in range(len(light_curve[:,0])):
+            if i in unique_index:
+                mask_unique.append(True)
+            else:
+                mask_unique.append(False)
+
+        return mask_unique
 
