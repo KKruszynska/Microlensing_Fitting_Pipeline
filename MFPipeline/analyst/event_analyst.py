@@ -145,7 +145,6 @@ class EventAnalyst(Analyst):
             if "path" in entry:
                 light_curve = np.genfromtxt(entry["path"], unpack=True)
                 light_curves.append({
-                    "event_name": self.event_name,
                     "lc": light_curve,
                     "survey": survey,
                     "band": band
@@ -156,7 +155,6 @@ class EventAnalyst(Analyst):
                 else:
                     light_curve = json.loads(entry["lc"])
                 light_curves.append({
-                    "event_name": self.event_name,
                     "lc": light_curve,
                     "survey": survey,
                     "band": band

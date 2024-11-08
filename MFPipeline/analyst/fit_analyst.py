@@ -129,15 +129,15 @@ class FitAnalyst(Analyst):
         """
 
         time_of_peak = 0.
-        mag_tof = 99.
+        max_amplitude = 0.
         for entry in self.light_curves:
             lc = np.asarray(entry["lc"])
             idx_max = np.argmin(lc[:, 1])
-            mag_max = lc[idx_max, 1]
+            amplitude = np.max(lc[:,1]) - lc[idx_max, 1]
             time_max = lc[idx_max, 0]
 
-            if mag_max < mag_tof:
-                mag_tof, time_of_peak = mag_max, time_max
+            if max_amplitude < amplitude:
+                time_of_peak, max_amplitude = time_max, amplitude
 
         return time_of_peak
 

@@ -14,8 +14,9 @@ class TestControllerPaths:
     def test_launch_analysts(self):
         from MFPipeline.controller.controller import Controller
 
-        event_list = ["GaiaDR3-ULENS-018",
-                      "GaiaDR3-ULENS-025"]
+        event_list = [#"GaiaDR3-ULENS-018",
+                      "GaiaDR3-ULENS-025"
+                      ]
         config = {
             "python_compiler": "python",
             "group_processing_limit": 1,
@@ -43,8 +44,9 @@ class TestControllerDicts:
 
 
 
-        event_list = [#"GaiaDR3-ULENS-018",
-                      "GaiaDR3-ULENS-025"]
+        event_list = ["GaiaDR3-ULENS-018",
+                      "GaiaDR3-ULENS-025",
+                      ]
 
         event_info = pd.read_csv("tests/test_controller/events_info.csv", header=0)
 
@@ -61,18 +63,18 @@ class TestControllerDicts:
             dictionary["fit_analyst"] = {}
             dictionary["fit_analyst"]["fitting_package"] = "pyLIMA"
 
-            cats = event_info["catalogues"].values[idx][0].split(" ")
-            cat_list = []
-            for catalogue in cats:
-                dict = {}
-                dict["name"] = catalogue
-                dict["bands"] = event_info["bands"].values[idx][0].split(" ")
-                if (len(event_info["path"].values[idx]) > 0):
-                    dict["cmd_path"] = event_info["path"].values[idx][0]
-                    dict["cmd_separator"] = ","
-                cat_list.append(dict)
-            dictionary["cmd_analyst"] = {}
-            dictionary["cmd_analyst"]["catalogues"] = cat_list
+            # cats = event_info["catalogues"].values[idx][0].split(" ")
+            # cat_list = []
+            # for catalogue in cats:
+            #     dict = {}
+            #     dict["name"] = catalogue
+            #     dict["bands"] = event_info["bands"].values[idx][0].split(" ")
+            #     if (len(event_info["path"].values[idx]) > 0):
+            #         dict["cmd_path"] = event_info["path"].values[idx][0]
+            #         dict["cmd_separator"] = ","
+            #     cat_list.append(dict)
+            # dictionary["cmd_analyst"] = {}
+            # dictionary["cmd_analyst"]["catalogues"] = cat_list
 
             light_curves = []
             for file in glob.glob("*%s*.dat" % event):
@@ -128,8 +130,10 @@ class TestControllerOngoing:
     def test_launch_analysts(self):
         from MFPipeline.controller.controller import Controller
 
-        event_list = ["Gaia24amo", "Gaia24cbz", "AT2024kwu", "GaiaDR3-ULENS-018",
-                      "GaiaDR3-ULENS-025"]
+        # event_list = ["Gaia24amo", "Gaia24cbz", "AT2024kwu", "GaiaDR3-ULENS-018",
+        #               "GaiaDR3-ULENS-025"]
+
+        event_list = ["AT2024kwu", "GaiaDR3-ULENS-018"]
 
         coordinates = {
             "Gaia24amo": {
@@ -155,7 +159,8 @@ class TestControllerOngoing:
         }
 
         analyst_jsons = {}
-        path_lightcurves = "./examples/light_curves/"
+        # path_lightcurves = "./examples/light_curves/"
+        path_lightcurves = "../examples/light_curves/"
         os.chdir(path_lightcurves)
 
         for event in event_list:
@@ -228,7 +233,7 @@ class TestControllerOngoing:
 
         config = {
             "python_compiler": "python",
-            "group_processing_limit": 2,
+            "group_processing_limit": 1,
             "events_path":
                 "tests/test_controller_ongoing/",
             "software_dir":
@@ -240,4 +245,32 @@ class TestControllerOngoing:
         }
 
         controller = Controller(event_list, config_dict=config, analyst_dicts=analyst_jsons)
+        controller.launch_analysts()
+
+class TestControllerPathsOngoing:
+    '''
+    Tests to check if controller works fine.
+    '''
+
+    def test_launch_analysts(self):
+        from MFPipeline.controller.controller import Controller
+
+        event_list = ["Gaia24amo", "Gaia24cbz", "AT2024kwu", "GaiaDR3_ULENS_018",
+                      "GaiaDR3_ULENS_025"]
+
+        config = {
+            "python_compiler": "python",
+            "group_processing_limit": 2,
+            "config_type": "json",
+            "events_path":
+                "tests/test_controller_path/",
+            "software_dir":
+                "MFPipeline/analyst/",
+            "log_stream": False,
+            "log_location":
+                "tests/test_controller_path/",
+            "log_level": "debug"
+        }
+
+        controller = Controller(event_list, config_dict=config)
         controller.launch_analysts()
