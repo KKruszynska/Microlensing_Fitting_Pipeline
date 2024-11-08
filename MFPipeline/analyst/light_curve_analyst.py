@@ -29,6 +29,7 @@ class LightCurveAnalyst(Analyst):
         super().__init__(event_name, analyst_path, config_dict=config_dict, config_path=config_path)
         # Analyst.__init__(self, event_name, analyst_path, config_dict=config_dict, config_path=config_path)
 
+        self.acceptable_mag_range = None
         self.light_curves = light_curves
         self.log = log
 
@@ -49,7 +50,7 @@ class LightCurveAnalyst(Analyst):
         """
 
         self.log.debug("LC Analyst: Reading lc config.")
-        self.n_max = int(config["lc_analyst"]["n_max"])
+        self.acceptable_mag_range = config["lc_analyst"].get("acceptable_mag_range", None)
         self.log.debug("LC Analyst: Finished reading lc config.")
 
     def perform_quality_check(self):
@@ -122,7 +123,11 @@ class LightCurveAnalyst(Analyst):
         :param light_curve: numpy array, an array containing JD, magnitude and error
         :return: mask with entries that don't have invalid magnitudes
         """
-        mask_inv_mag = np.where((light_curve[:, 1] > -10) & (light_curve[:, 1] < 40))
+        custom_range = self.acceptable_mag_range
+        if custom_range is not None:
+            mask_inv_mag = np.where((light_curve[:, 1] > custom_range["upper_limit"]) & (light_curve[:, 1] < custom_range["lower_limit"]))
+        else:
+            mask_inv_mag = np.where((light_curve[:, 1] > -10) & (light_curve[:, 1] < 40))
 
         return mask_inv_mag
 
@@ -141,4 +146,3 @@ class LightCurveAnalyst(Analyst):
                 mask_unique.append(False)
 
         return mask_unique
-
