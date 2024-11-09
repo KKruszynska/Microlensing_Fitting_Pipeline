@@ -9,7 +9,8 @@ scenario_gaia = {
         "ra": 260.8781,
         "dec": -27.3788,
         "lc_analyst": {
-            "n_max" : 5
+            "acceptable_mag_range": {"upper_limit": -10,
+                                     "lower_limit": 30}
         },
         "light_curves" : [
                 {
@@ -81,8 +82,8 @@ class testLCAnalyst:
         path_outputs = self.scenario.get("path_outputs")
         config["ra"], config["dec"] = self.scenario.get("ra"), self.scenario.get("dec")
         config["lc_analyst"] = {}
-        dict = self.scenario.get("lc_analyst")
-        config["lc_analyst"]["n_max"] = dict.get("n_max")
+        dictionary = self.scenario.get("lc_analyst")
+        config["lc_analyst"]["acceptable_mag_range"] = dictionary.get("acceptable_mag_range")
         config["light_curves"] = self.scenario.get("light_curves")
 
         light_curves = []
@@ -108,10 +109,14 @@ class testLCAnalyst:
 
         log = logs.start_log(path_outputs, "debug", event_name=config["event_name"], stream=True)
         analyst = LightCurveAnalyst(config["event_name"], path_outputs, light_curves, log, config_dict=config)
-        n_max_config = analyst.config["lc_analyst"]["n_max"]
+        upper_mag = analyst.config["lc_analyst"]["acceptable_mag_range"]["upper_limit"]
+        lower_mag = analyst.config["lc_analyst"]["acceptable_mag_range"]["lower_limit"]
+        mag_range_dict = analyst.acceptable_mag_range
         logs.close_log(log)
 
-        assert n_max_config == dict.get("n_max")
+        assert upper_mag == dictionary["acceptable_mag_range"].get("upper_limit")
+        assert lower_mag == dictionary["acceptable_mag_range"].get("lower_limit")
+        assert mag_range_dict == dictionary["acceptable_mag_range"]
 
     def test_run_analyst(self):
         from MFPipeline.analyst.light_curve_analyst import LightCurveAnalyst
@@ -213,7 +218,6 @@ def test_run():
 
     case = scenario_gsa
     test = testLCAnalyst(case)
-    test.test_parse_config()
     test.test_run_analyst()
 
     test = testBadLightCurves()

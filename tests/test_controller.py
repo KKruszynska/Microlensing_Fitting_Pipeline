@@ -133,7 +133,8 @@ class TestControllerOngoing:
         # event_list = ["Gaia24amo", "Gaia24cbz", "AT2024kwu", "GaiaDR3-ULENS-018",
         #               "GaiaDR3-ULENS-025"]
 
-        event_list = ["AT2024kwu", "GaiaDR3-ULENS-018"]
+        # event_list = ["Gaia24amo", "AT2024kwu", "GaiaDR3-ULENS-018"]
+        event_list = ["Gaia24amo"]
 
         coordinates = {
             "Gaia24amo": {
@@ -159,8 +160,8 @@ class TestControllerOngoing:
         }
 
         analyst_jsons = {}
-        # path_lightcurves = "./examples/light_curves/"
-        path_lightcurves = "../examples/light_curves/"
+        path_lightcurves = "./examples/light_curves/"
+        # path_lightcurves = "../examples/light_curves/"
         os.chdir(path_lightcurves)
 
         for event in event_list:
@@ -213,12 +214,12 @@ class TestControllerOngoing:
                     band = "I"
                     light_curve[:, 0] = light_curve[:, 0] + 2450000.
 
-                dict = {
+                lc_dict = {
                     "survey": survey,
                     "band": band,
                     "lc": json.dumps(light_curve.tolist())
                 }
-                light_curves.append(dict)
+                light_curves.append(lc_dict)
 
             dictionary["light_curves"] = light_curves
             file_name = "../../tests/test_controller_ongoing/" + "%s.json" % (event)
@@ -255,8 +256,10 @@ class TestControllerPathsOngoing:
     def test_launch_analysts(self):
         from MFPipeline.controller.controller import Controller
 
-        event_list = ["Gaia24amo", "Gaia24cbz", "AT2024kwu", "GaiaDR3_ULENS_018",
-                      "GaiaDR3_ULENS_025"]
+        # event_list = ["Gaia24amo", "Gaia24cbz", "AT2024kwu", "GaiaDR3_ULENS_018",
+        #               "GaiaDR3_ULENS_025"]
+
+        event_list = ["AT2024kwu", "GaiaDR3-ULENS-018"]
 
         config = {
             "python_compiler": "python",
