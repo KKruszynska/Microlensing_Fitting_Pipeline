@@ -71,9 +71,9 @@ class fitPyLIMA(Fitter):
                 telescope = telescopes.Telescope(
                     name=survey+"_"+band,
                     camera_filter=band,
-                    light_curve=lc.astype(float),
-                    light_curve_names=["time", "mag", "err_mag"],
-                    light_curve_units=["JD", "mag", "mag"],
+                    lightcurve=lc.astype(float),
+                    lightcurve_names=["time", "mag", "err_mag"],
+                    lightcurve_units=["JD", "mag", "mag"],
                     location = "Space",
                     spacecraft_name = "Gaia",
                     spacecraft_positions = spacecraft_positions
@@ -82,9 +82,9 @@ class fitPyLIMA(Fitter):
                 telescope = telescopes.Telescope(
                     name=survey+"_"+band,
                     camera_filter=band,
-                    light_curve=lc.astype(float),
-                    light_curve_names=['time','mag','err_mag'],
-                    light_curve_units=['JD','mag','mag'],
+                    lightcurve=lc.astype(float),
+                    lightcurve_names=['time','mag','err_mag'],
+                    lightcurve_units=['JD','mag','mag'],
                     location="Earth",
                     )
 
@@ -244,7 +244,7 @@ class fitPyLIMA(Fitter):
         for i, tel in enumerate(event.telescopes):
             if(i == 0):
                 tel_0 = tel.name
-            ndata += len(tel.lightcurve_magnitude)
+            ndata += len(tel.lightcurve["mag"])
         model_params["red_chi2"] = np.around(model_params["chi2"] / float(ndata - len(param_keys)), 3)
 
         key_map = {
@@ -380,37 +380,35 @@ class fitPyLIMA(Fitter):
         residuals = []
         # reference_source, reference_blend = 0., 0.
         for ind, tel in enumerate(model.event.telescopes):
-            if tel.lightcurve_flux is not None:
+            if tel.lightcurve["flux"] is not None:
                 ref_index = 0
                 if tel.location == "Earth":
                     ref_index = np.where(np.array(ref_locations) == "Earth")[0][0]
                 else:
                     ref_index = np.where(np.array(ref_names) == tel.name)[0][0]
 
-                residus_in_mag = photometric_residuals_in_magnitude(tel, model, pyLIMA_parameters)
+                residues_in_mag = photometric_residuals_in_magnitude(tel, model, pyLIMA_parameters)
                 if ind == 0:
                     reference_source = ref_fluxes[ind][0]
                     reference_blend = ref_fluxes[ind][1]
 
                 # time_mask = [False for i in range(len(ref_magnification[ref_index]))]
                 time_mask = []
-                for time in tel.lightcurve_flux["time"].value:
-                    time_index = np.where(list_of_telescopes[ref_index].lightcurve_flux[
-                                              "time"].value == time
-                                          )[0][0]
+                for time in tel.lightcurve["time"].value:
+                    time_index = np.where(list_of_telescopes[ref_index].lightcurve["time"].value == time)[0][0]
                     time_mask.append(time_index)
 
                 model_flux = reference_source * ref_magnification[ref_index][
                     time_mask] + reference_blend
                 magnitude = toolbox.brightness_transformation.flux_to_magnitude(model_flux)
 
-                aligned_magnitude = np.array([tel.lightcurve_magnitude["time"].value,
-                                             magnitude + residus_in_mag,
-                                             tel.lightcurve_magnitude["err_mag"].value
+                aligned_magnitude = np.array([tel.lightcurve["time"].value,
+                                             magnitude + residues_in_mag,
+                                             tel.lightcurve["err_mag"].value
                                              ])
-                res_magnitude = np.array([tel.lightcurve_magnitude["time"].value,
-                                             residus_in_mag,
-                                             tel.lightcurve_magnitude["err_mag"].value
+                res_magnitude = np.array([tel.lightcurve["time"].value,
+                                             residues_in_mag,
+                                             tel.lightcurve["err_mag"].value
                                              ])
 
                 aligned_data.append(aligned_magnitude.T)
