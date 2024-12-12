@@ -158,7 +158,7 @@ def test_run():
     # test = testEventAnalyst(case)
     # test.test_parse_config()
 
-    case = scenario_kwu
+    case = scenario_gsa
     test = testEventAnalyst(case)
     test.test_run_analyst()
 
